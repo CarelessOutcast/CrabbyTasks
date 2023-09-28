@@ -7,6 +7,6 @@ services:
     image: crabbytasks:v1
     env_file:
       - ./web/.prod.env
+    command: sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && chmod +x /app/entrypoint.sh && /app/entrypoint.sh"
     ports:
       - "8000:8000"
-    command: sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && /app/entrypoint.sh"
