@@ -1,3 +1,5 @@
+.env
+.prod.env
 local-file.conf
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -122,7 +124,7 @@ celerybeat.pid
 
 # Environments
 .env
-.prod.env
+.env.prod
 .venv
 env/
 venv/
