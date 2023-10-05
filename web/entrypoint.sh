@@ -8,5 +8,5 @@ if ["$ENV_TYPE" = "production"]; then
   /opt/env/bin/gunicorn --worker-tmp-dir /dev/shm crabbytasks.wsgi:application --bind "0.0.0.0:${APP_PORT}"
 else
   echo "Loading Development server..."
-  /opt/env/bin/python manage.py runserver 0.0.0.0:8000
+  /opt/env/bin/python manage.py runserver 0.0.0.0:APP_PORT
 fi
