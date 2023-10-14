@@ -27,6 +27,7 @@ DEBUG = str(os.environ.get("DEBUG")) == "1"
 
 ALLOWED_HOSTS = ["*","red-lobster.dev"]
 
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'rest_framework', 
+    'corsheaders', #Cross Origin Resource Sharing Headers
 ]
 
 MIDDLEWARE = [
@@ -46,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'crabbytasks.urls'
@@ -67,6 +71,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'crabbytasks.wsgi.application'
+
+#Rest Framework settings
+REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES':[
+            'rest_framework.permissions.AllowAny'
+            ]
+        }
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
