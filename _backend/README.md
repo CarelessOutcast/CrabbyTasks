@@ -1,8 +1,8 @@
-#Django Backend Server
+# Django Backend Server
 
-#crabbytasks app holds general config
+# crabbytasks app holds general config
 
-#main app holds rest_framework endpoints
+# main app holds rest_framework endpoints
 
 
 
