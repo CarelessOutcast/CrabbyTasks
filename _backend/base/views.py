@@ -4,26 +4,7 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 from .models import task_model, user_model
 
-# Django REST API imports 
-from rest_framework.views import APIView
-from . models import *
-from . serializer import *
-from rest_framework.response import Response
-
-
 # Create your views here.
-class ReactView(APIView):
-    def get(self, request):
-        output = [{"task_id": output.task_id, "complete": output.complete,
-                   "task": output.task, "deadline": output.deadline }
-                  for output in task_model.objects.all() ]
-        return Response(output)
-
-    def post(self, request):
-        serializer = TaskSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
 
 @require_http_methods(["POST"])
 def add_task(request):
