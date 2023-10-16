@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main',
+    'base.apps.MainConfig',
     'rest_framework', 
     'corsheaders', #Cross Origin Resource Sharing Headers
 ]
@@ -52,12 +52,12 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
-ROOT_URLCONF = 'crabbytasks.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'main/templates'],
+        'DIRS': [BASE_DIR / 'base/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'crabbytasks.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 #Rest Framework settings
 REST_FRAMEWORK = {

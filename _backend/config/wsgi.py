@@ -18,6 +18,6 @@ if os.environ.get("ENV_ENTRY") is None:
     dotenv.read_dotenv(str(ENV_FILE_PATH))
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'crabbytasks.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 application = get_wsgi_application()
