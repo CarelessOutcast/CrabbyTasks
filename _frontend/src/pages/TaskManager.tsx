@@ -1,9 +1,9 @@
 import Breadcrumb from '../components/Breadcrumb';
 
-const Calendar = () => {
+const TaskManager = () => {
   return (
     <>
-      <Breadcrumb pageName="Calendar" />
+      <Breadcrumb pageName="TaskManager" /> {/*Title that goes above calendar/page content */}
 
       {/* <!-- ====== Calendar Section Start ====== --> */}
       <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -270,4 +270,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default TaskManager;

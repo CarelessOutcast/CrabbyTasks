@@ -1,6 +1,9 @@
 import { lazy } from 'react';
 
-const Calendar = lazy(() => import('../pages/Calendar'));
+// const Calendar = lazy(() => import('../pages/Calendar'));
+
+const TaskManager = lazy(() => import('../pages/TaskManager'));
+const Pet = lazy(() => import('../pages/Pet'));
 const Chart = lazy(() => import('../pages/Chart'));
 const FormElements = lazy(() => import('../pages/Form/FormElements'));
 const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
@@ -12,10 +15,20 @@ const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 
 const coreRoutes = [
   {
-    path: '/calendar',
-    title: 'Calender',
-    component: Calendar,
+    path: '/taskManager',
+    title: 'Task Manager',
+    component: TaskManager,
   },
+  {
+    path: '/pet',
+    title: 'Pet',
+    component: Pet,
+  },
+  // {
+  //   path: '/calendar',
+  //   title: 'Calender',
+  //   component: Calendar,
+  // },
   {
     path: '/profile',
     title: 'Profile',
