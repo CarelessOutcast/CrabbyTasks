@@ -7,10 +7,10 @@ import Breadcrumb from '../components/Breadcrumb';
 const TaskManager = () => {
   const [calendarView, setCalendarView] = useState("Month"); //Default calendar view is monthly
 
-  
+
   const handleCalendarChange = (view: SetStateAction<string>) => {
     setCalendarView(view);
-    
+
   }
 
   const MonthCalendar = () => {
@@ -281,16 +281,108 @@ const TaskManager = () => {
   };
 
   const WeekCalendar = () => {
-    return(
-    <p>Weekly Calendar Display Here</p>
+    return (
+      <>
+        <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <table className="w-full">
+            <thead>
+              <tr className="grid grid-cols-7 rounded-t-sm bg-primary text-white">
+                <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
+                  Sun
+                </th>
+                <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                  Mon
+                </th>
+                <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                  Tue
+                </th>
+                <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                  Wed
+                </th>
+                <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                  Thur
+                </th>
+                <th className="flex h-15 items-center justify-center p-1 text-xs font-semibold sm:text-base xl:p-5">
+                  Fri
+                </th>
+                <th className="flex h-15 items-center justify-center rounded-tr-sm p-1 text-xs font-semibold sm:text-base xl:p-5">
+                  Sat
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Weekly calendar rows */}
+              <tr className="grid grid-cols-7">
+                {/* Sunday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">1</span>
+                  {/* Add your content for each cell here */}
+                </td>
+                {/* Monday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">2</span>
+                  {/* Add your content for each cell here */}
+                </td>
+                {/* Tuesday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">3</span>
+                  {/* Add your content for each cell here */}
+                </td>
+                {/* Wednesday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">4</span>
+                  {/* Add your content for each cell here */}
+                </td>
+                {/* Thursday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">5</span>
+                  {/* Add your content for each cell here */}
+                </td>
+                {/* Friday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">6</span>
+                  {/* Add your content for each cell here */}
+                </td>
+                {/* Saturday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">7</span>
+                  {/* Add your content for each cell here */}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </>
     );
   };
 
   const DayCalendar = () => {
-    return(
-    <p>Day Calendar Display Here</p>
-    )
-  }
+    return (
+      <>
+        <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+          <table className="w-full">
+            <thead>
+              <tr className="grid grid-cols-1 rounded-t-sm bg-primary text-white">
+                <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5 text-center">
+                  <div className="flex justify-center w-full">Sunday 1/1</div> {/* Replace with actual current date later */}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Weekly calendar rows */}
+              <tr className="grid grid-cols-1">
+                {/* Sunday */}
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31 flex items-center justify-center text-center">
+                  <span className="font-medium text-black dark:text-white"></span>
+                  {/* Add your content for each cell here */}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </>
+    );
+  };
 
   return (
     <>
@@ -299,15 +391,15 @@ const TaskManager = () => {
       {/* Day Week Month Buttons Start */}
       <div className="flex justify-end">
         <div className="inline-flex items-center rounded-md bg-whiter p-1.5 dark:bg-meta-4">
-          <button className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${ calendarView === 'Day' ? 'bg-white shadow-card dark:bg-boxdark' : ''}`} 
+          <button className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${calendarView === 'Day' ? 'bg-white shadow-card dark:bg-boxdark' : ''}`}
             onClick={() => handleCalendarChange("Day")}>
             Day
           </button>
-          <button className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${ calendarView === 'Week' ? 'bg-white shadow-card dark:bg-boxdark' : ''}`} 
+          <button className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${calendarView === 'Week' ? 'bg-white shadow-card dark:bg-boxdark' : ''}`}
             onClick={() => handleCalendarChange("Week")}>
             Week
           </button>
-          <button className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${ calendarView === 'Month' ? 'bg-white shadow-card dark:bg-boxdark' : ''}`} 
+          <button className={`rounded py-1 px-3 text-xs font-medium text-black hover:bg-white hover:shadow-card dark:text-white dark:hover:bg-boxdark ${calendarView === 'Month' ? 'bg-white shadow-card dark:bg-boxdark' : ''}`}
             onClick={() => handleCalendarChange("Month")}>
             Month
           </button>
@@ -316,9 +408,9 @@ const TaskManager = () => {
       {/* Day Week Month Buttons End */}
 
       {/* <!-- ====== Calendar Section Start ====== --> */}
-      {calendarView === "Month" && ( <MonthCalendar />)}
-      {calendarView === "Week" && ( <WeekCalendar />)}
-      {calendarView === "Day" && ( <DayCalendar />)}
+      {calendarView === "Month" && (<MonthCalendar />)}
+      {calendarView === "Week" && (<WeekCalendar />)}
+      {calendarView === "Day" && (<DayCalendar />)}
       {/* <!-- ====== Calendar Section End ====== --> */}
     </>
   );
