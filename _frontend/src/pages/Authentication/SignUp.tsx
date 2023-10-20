@@ -1,8 +1,40 @@
-import { Link } from 'react-router-dom';
+import {useState} from 'react'; 
+import axiosInstance from '../../axios';
+import { Link, useNavigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const initialFormData = Object.freeze({ 
+    email:'', 
+    username:'', 
+    password:'',
+  });
+
+  const [formData, updateFormData] = useState(initialFormData);
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+      });
+    }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    axiosInstance
+    .post(`user/create/`,{
+      email:formData.email,
+      user_name:formData.username,
+      password:formData.password,
+      })
+    .then((res)=>{
+      navigate('/auth/signin/');
+      console.log(res);
+      console.log(res.data);
+      });
+    }
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -157,9 +189,12 @@ const SignUp = () => {
                   </label>
                   <div className="relative">
                     <input
+                      id="username"
+                      name="username"
                       type="text"
                       placeholder="Enter your full name"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={handleChange}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -192,9 +227,12 @@ const SignUp = () => {
                   </label>
                   <div className="relative">
                     <input
+                      id="email"
+                      name="email"
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={handleChange}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -223,9 +261,12 @@ const SignUp = () => {
                   </label>
                   <div className="relative">
                     <input
+                      id="password"
+                      name="password"
                       type="password"
                       placeholder="Enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={handleChange}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -261,6 +302,7 @@ const SignUp = () => {
                       type="password"
                       placeholder="Re-enter your password"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={handleChange}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -292,6 +334,7 @@ const SignUp = () => {
                     type="submit"
                     value="Create account"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                    onClick={handleSubmit}
                   />
                 </div>
 

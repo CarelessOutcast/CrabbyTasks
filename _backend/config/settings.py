@@ -87,8 +87,8 @@ REST_FRAMEWORK = {
             'rest_framework.permissions.AllowAny',
             ],
         'DEFAULT_AUTHENTICATION_CLASSES': (
+            # 'rest_framework.authentication.SessionAuthentication',
             'rest_framework_simplejwt.authentication.JWTAuthentication',
-            'rest_framework.authentication.SessionAuthentication',
             ),
 
         }
@@ -213,8 +213,8 @@ SIMPLE_JWT = {
     "JWK_URL": None,
     "LEEWAY": 0,
 
-    "AUTH_HEADER_TYPES": ("Bearer","JWT"),
-    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "AUTH_HEADER_TYPES": ("JWT"),
+    "AUTH_HEADER_NAME": "AUTHORIZATION",
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
@@ -237,4 +237,6 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+APPEND_SLASH=False
 

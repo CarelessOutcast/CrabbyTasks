@@ -48,7 +48,7 @@ class new_user_model(AbstractBaseUser, PermissionsMixin):
     objects = custom_account_manager_model()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_name', 'first_name']
+    REQUIRED_FIELDS = ['user_name']
 
     def __str__(self):
         return self.user_name

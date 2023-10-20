@@ -1,8 +1,45 @@
+import {useState} from 'react'; 
+import axiosInstance from '../../axios';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const initialFormData = Object.freeze({ 
+    email:'', 
+    password:'',
+  });
+
+  const [formData, updateFormData] = useState(initialFormData);
+  const handleChange = (e) => {
+    updateFormData({
+      ...formData,
+      [e.target.name]: e.target.value.trim(),
+      });
+    }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+    console.log(e);
+    axiosInstance
+    .post(`token/`,{
+      email:formData.email,
+      password:formData.password,
+      })
+    .then((res)=>{
+        localStorage.setItem('access_token', res.data.access);
+        localStorage.setItem('refresh_token', res.data.refresh);
+        axiosInstance.defaults.headers['Authorization'] =
+        'JWT ' + localStorage.getItem('access_token');
+
+      navigate('/');
+      console.log(res);
+      console.log(res.data);
+      });
+    }
   return (
     <>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -151,16 +188,19 @@ const SignIn = () => {
                 Sign In to TailAdmin
               </h2>
 
-              <form>
+              <form >
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
                   </label>
                   <div className="relative">
                     <input
+                      id="email"
+                      name="email"
                       type="email"
                       placeholder="Enter your email"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={handleChange}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -185,13 +225,16 @@ const SignIn = () => {
 
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                    Re-type Password
+                    Password
                   </label>
                   <div className="relative">
                     <input
+                      id="password"
+                      name="password"
                       type="password"
                       placeholder="6+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                      onChange={handleChange}
                     />
 
                     <span className="absolute right-4 top-4">
@@ -223,6 +266,7 @@ const SignIn = () => {
                     type="submit"
                     value="Sign In"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                    onClick={handleSubmit}
                   />
                 </div>
 
