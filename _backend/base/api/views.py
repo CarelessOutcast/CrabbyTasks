@@ -2,55 +2,95 @@ from ..models import *
 from .serializer import *
 
 # Django REST API imports 
-from rest_framework.views import APIView
+from rest_framework import generics, filters
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from rest_framework import generics
-from rest_framework.permissions import SAFE_METHODS, BasePermission, DjangoModelPermissionsOrAnonReadOnly
+
+# Filtering
+from django_filters import rest_framework as filters
+from .filters import *
+
+# https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/#tutorial-4-authentication-permissions
+from rest_framework.permissions import SAFE_METHODS, BasePermission, DjangoModelPermissionsOrAnonReadOnly, IsAuthenticatedOrReadOnly, IsAuthenticated
+#jwt auth
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 #Object level permission!!
 class TaskUserWritePermission(BasePermission):
-    message = "How did you manage to get here"
+    message = "Only author can edit"
     def has_object_permission(self,request,view,obj):
         if request.method in SAFE_METHODS:
             return True
         return obj.user_id == request.user
 
-#jwt auth
-from rest_framework_simplejwt.views import TokenObtainPairView
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
-
-
-
-#Function based view
-@api_view(['GET'])
-def getRoutes(request):
-    permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
-    routes =[
-            '/api/token',
-            '/api/token/refresh',
-            ]
-            
-    return Response(routes)
-
 
 #Class based view 
-class TasksList(generics.ListCreateAPIView):
-    # Adding security permissions
+# Get all db tasks
+class RetriveAllTasks(generics.ListCreateAPIView):
     permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
     queryset = task_model.objects.all()
-    serializer_class = TaskSerializer
-    # def get(self,request):
-    #     return Response()
-    # def post(self,request):
-    #     return Response()
-    # pass
+    serializer_class = TaskRetrieveSerializer
 
-class TaskDetail(generics.RetrieveUpdateDestroyAPIView,TaskUserWritePermission):
+# Query for all current user tasks
+class RetriveUserTasks(generics.ListAPIView):
+    permission_classes=[IsAuthenticated]
+    serializer_class = TaskRetrieveSerializer
+    def get_queryset(self): 
+        current_user = self.request.user
+        return task_model.tasks_objects.for_user(current_user)
+
+
+# Search for unknown single ?task=<PartialNameOfTask>
+class RetriveUnknownUserTask(generics.ListCreateAPIView):
+    permission_classes=[TaskUserWritePermission]
+    serializer_class = TaskRetrieveSerializer
+    filter_backends=[filters.DjangoFilterBackend]
+    filterset_class= TaskFilter
+    def get_queryset(self):
+        current_user = self.request.user
+        return task_model.tasks_objects.for_user(current_user)
+
+# TODO Figure out how to make a more flexible search
+# class SearchUserTasks(generics.ListCreateAPIView):
+#     # permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
+#     serializer_class = TaskRetrieveSerializer
+#     filter_backends=[filters.DjangoFilterBackend]
+#     filterset_class= StatusFilter
+#     def get_queryset(self):
+#         current_user = self.request.user
+#         return task_model.tasks_objects.for_user(current_user)
+
+
+class CreateUserTask(generics.CreateAPIView):
+    permission_classes=[TaskUserWritePermission]
+    serializer_class = TaskCreateSerializer
+    def get_queryset(self):
+        current_user = self.request.user
+        return task_model.tasks_objects.for_user(current_user)
+    
+class RetriveUserTask(generics.RetrieveAPIView):
+    permission_classes=[TaskUserWritePermission]
+    serializer_class = TaskRetrieveSerializer
+    def get_queryset(self):
+        current_user = self.request.user
+        return task_model.tasks_objects.for_user(current_user)
+
+
+class UpdateUserTask(generics.UpdateAPIView):
+    permission_classes=[TaskUserWritePermission]
+    serializer_class = TaskRetrieveSerializer
+    def get_queryset(self):
+        current_user = self.request.user
+        return task_model.tasks_objects.for_user(current_user)
+
+class DeleteUserTask(generics.RetrieveUpdateDestroyAPIView,TaskUserWritePermission):
     permission_classes=[TaskUserWritePermission] # Only the user can edit their tasks
-    queryset= task_model.objects.all()
-    serializer_class =TaskSerializer
+    serializer_class = TaskRetrieveSerializer
+    def get_queryset(self):
+        current_user = self.request.user
+        return task_model.tasks_objects.for_user(current_user)
 
 
 

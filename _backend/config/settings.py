@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders', #Cross Origin Resource Sharing Headers
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +84,11 @@ AUTH_USER_MODEL = "users.new_user_model"
 REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES':[
             #System wide permissions
-            # 'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-            'rest_framework.permissions.AllowAny',
+            'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+            # 'rest_framework.permissions.AllowAny',
+            ],
+        'DEFAULT_FILTER_BACKENDS': [
+            'django_filters.rest_framework.DjangoFilterBackend'
             ],
         'DEFAULT_AUTHENTICATION_CLASSES': (
             # 'rest_framework.authentication.SessionAuthentication',
