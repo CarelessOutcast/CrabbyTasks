@@ -40,12 +40,23 @@ class new_user_model(AbstractBaseUser, PermissionsMixin):
     about = models.TextField(_(
         'about'), max_length=500, blank=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    # TODO Larry Level field
+    # TODO Exp Counter field
 
     objects = custom_account_manager_model()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name']
+
+    # def levelcalculate (self):
+    #     if (self.exp_counter >= self.LarryLevel*100):
+    #         self.LarryLevel += 1
+    #     elif (self.exp_counter < self.LarryLevel*100):
+    #         self.LarryLevel -= 1
+    #     else:
+    #         self.LarryLevel 
 
     def __str__(self):
         return self.user_name

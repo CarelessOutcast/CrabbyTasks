@@ -1,5 +1,5 @@
 import {useState} from 'react'; 
-import axiosInstance from '../../axios';
+import  axiosInstance  from '../../axios';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
@@ -31,7 +31,6 @@ const SignUp = () => {
       })
     .then((res)=>{
       navigate('/auth/signin/');
-      console.log(res);
       console.log(res.data);
       });
     }

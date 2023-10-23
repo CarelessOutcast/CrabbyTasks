@@ -17,6 +17,7 @@ class TaskRetrieveSerializer(serializers.ModelSerializer):
                 'notifications',
                 'deadline'
                 ]
+
 class TaskCreateSerializer(serializers.ModelSerializer):
     class Meta: 
         model = task_model
@@ -28,6 +29,7 @@ class TaskCreateSerializer(serializers.ModelSerializer):
                 'priority',
                 'notifications',
                 ]
+
     def create(self, validated_data):
         user = self.context['request'].user
         task = task_model.objects.create(user_id=user, **validated_data)

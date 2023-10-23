@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-import os
 
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,8 +48,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -76,31 +76,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
-#Rest Framework settings
-AUTH_USER_MODEL = "users.new_user_model"
-
-#https://www.django-rest-framework.org
-REST_FRAMEWORK = {
-        'DEFAULT_PERMISSION_CLASSES':[
-            #System wide permissions
-            'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-            # 'rest_framework.permissions.AllowAny',
-            ],
-        'DEFAULT_FILTER_BACKENDS': [
-            'django_filters.rest_framework.DjangoFilterBackend'
-            ],
-        'DEFAULT_AUTHENTICATION_CLASSES': (
-            # 'rest_framework.authentication.SessionAuthentication',
-            'rest_framework_simplejwt.authentication.JWTAuthentication',
-            ),
-
-        }
-#Documentation
-#https://github.com/adamchainz/django-cors-headers
-# TODO add specified origins
-CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOWED_ORIGINS = ['']
 
 
 # Database
@@ -204,7 +179,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "ROTATE_REFRESH_TOKENS": True,
+    "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": True,
     "UPDATE_LAST_LOGIN": True,
 
@@ -217,8 +192,8 @@ SIMPLE_JWT = {
     "JWK_URL": None,
     "LEEWAY": 0,
 
-    "AUTH_HEADER_TYPES": ("JWT"),
-    "AUTH_HEADER_NAME": "AUTHORIZATION",
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
     "USER_ID_FIELD": "id",
     "USER_ID_CLAIM": "user_id",
     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
@@ -243,4 +218,24 @@ SIMPLE_JWT = {
 }
 
 APPEND_SLASH=False
+
+#Rest Framework settings
+AUTH_USER_MODEL = "users.new_user_model"
+
+#https://www.django-rest-framework.org
+REST_FRAMEWORK = {
+        'DEFAULT_PERMISSION_CLASSES':[
+            'rest_framework.permissions.AllowAny',
+            ],
+        'DEFAULT_AUTHENTICATION_CLASSES': (
+            'rest_framework_simplejwt.authentication.JWTAuthentication',
+            # 'rest_framework.authentication.SessionAuthentication',
+            ),
+        }
+#Documentation
+#https://github.com/adamchainz/django-cors-headers
+# TODO add specified origins
+CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOWED_ORIGINS = ['']
+
 

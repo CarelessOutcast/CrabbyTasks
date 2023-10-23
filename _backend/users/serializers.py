@@ -23,3 +23,19 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+# class UserLarryLevelSerializer(serializers.ModelSerializer):
+#     """
+#     Currently unused in preference of the below.
+#     """
+#     class Meta:
+#         model = new_user_model
+#         fields = ('level')
+#     def post(self, levelData):
+#         level = levelData.level
+#         # as long as the fields are the same, we can just use this
+#         instance = self.Meta.model(**level)
+#         if level is not None:
+#             instance.levelCalculate(level)
+#         instance.save()
+#         return instance

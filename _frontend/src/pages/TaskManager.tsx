@@ -1,23 +1,44 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import TaskList from '../components/TaskList';
+import useAxios from '../hooks/useAxios';
 
-
+// Common Interface imports
+import { Task } from '../interfaces/Task.ts';
 
 const TaskManager = () => {
+  const [appState, setAppState] = useState<{
+      loading:boolean;
+      tasksData:null | Task[]
+    }>({ // Do we have all tasks yet?
+    loading: true,
+    tasksData:null,
+    })
   const [calendarView, setCalendarView] = useState("Month"); //Default calendar view is monthly
   const [taskView, setTaskView] = useState(false); //Default is that task menu is not open
-
+  // const [taskCount , setTaskCount] = useState(0); //Default is that task menu is not open
+  const api = useAxios();
+  
+  // Acquire every task the user has ever created
+  // TODO: Filter for all tasks for current largest timeframe in viewfinder
+  // i.e Get All tasks for Month from Backend, then use same appState.tasks
+  // to filter per smaller view
+  useEffect(()=>{
+    api.get().then((res)=>{
+      console.log(res);
+      const allTasks:Task[] = res.data;
+      setAppState({loading:false, tasksData: allTasks});
+      console.log(allTasks);
+      })
+    }, [setAppState]);
 
   const handleCalendarChange = (view: SetStateAction<string>) => {
     setCalendarView(view);
-
   }
 
   const openTasks = (date: string) => {
     setTaskView(true);
-    //Retrieve tasks for inputted date code here?
-
+    //Retrieve tasks for inputted date code here? <-- one day :,)
   }
 
 
@@ -424,7 +445,7 @@ const TaskManager = () => {
         openTaskList()
       )} */}
       {taskView && (
-        <TaskList setTaskView={setTaskView}/>
+        <TaskList setTaskView={setTaskView} tasksData={appState.tasksData}/>
       )}
       {/* <!-- ====== Calendar Section End ====== --> */}
     </>

@@ -1,3 +1,5 @@
+from rest_framework.exceptions import status
+from rest_framework.views import APIView
 from ..models import *
 from .serializer import *
 
@@ -10,9 +12,13 @@ from django_filters import rest_framework as filters
 from .filters import *
 
 # https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/#tutorial-4-authentication-permissions
-from rest_framework.permissions import SAFE_METHODS, BasePermission, DjangoModelPermissionsOrAnonReadOnly, IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.permissions import SAFE_METHODS, BasePermission, AllowAny, DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated
 #jwt auth
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+import logging
+logger = logging.getLogger(__name__)
+
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
@@ -34,13 +40,12 @@ class RetriveAllTasks(generics.ListCreateAPIView):
     serializer_class = TaskRetrieveSerializer
 
 # Query for all current user tasks
-class RetriveUserTasks(generics.ListAPIView):
+class RetriveUserTasks(generics.ListCreateAPIView):
     permission_classes=[IsAuthenticated]
     serializer_class = TaskRetrieveSerializer
     def get_queryset(self): 
         current_user = self.request.user
-        return task_model.tasks_objects.for_user(current_user)
-
+        return task_model.objects.filter(user_id=current_user)
 
 # Search for unknown single ?task=<PartialNameOfTask>
 class RetriveUnknownUserTask(generics.ListCreateAPIView):
@@ -48,9 +53,22 @@ class RetriveUnknownUserTask(generics.ListCreateAPIView):
     serializer_class = TaskRetrieveSerializer
     filter_backends=[filters.DjangoFilterBackend]
     filterset_class= TaskFilter
+        
     def get_queryset(self):
         current_user = self.request.user
         return task_model.tasks_objects.for_user(current_user)
+
+# Search for unknown single ?task=<PartialNameOfTask>
+class RetriveUnknownUserTasks(generics.ListCreateAPIView):
+    permission_classes=[TaskUserWritePermission]
+    serializer_class = TaskRetrieveSerializer
+    # filter_backends=[filters.DjangoFilterBackend]
+    # filterset_class= TaskFilter
+
+    def get_queryset(self):
+        current_user = self.request.user
+        return task_model.tasks_objects.for_user(current_user)
+
 
 # TODO Figure out how to make a more flexible search
 # class SearchUserTasks(generics.ListCreateAPIView):
@@ -91,7 +109,6 @@ class DeleteUserTask(generics.RetrieveUpdateDestroyAPIView,TaskUserWritePermissi
     def get_queryset(self):
         current_user = self.request.user
         return task_model.tasks_objects.for_user(current_user)
-
 
 
 

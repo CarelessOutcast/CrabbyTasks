@@ -27,6 +27,7 @@ PRIORITIES = (
     ('5', 'Lowest'),
 )
 
+
 #creates table in database for tasks and their information
 class task_model(models.Model):
     #Add query model permissions: https://www.django-rest-framework.org/api-guide/permissions/#djangomodelpermissions
