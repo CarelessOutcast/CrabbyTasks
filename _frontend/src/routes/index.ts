@@ -12,6 +12,7 @@ const Settings = lazy(() => import('../pages/Settings'));
 const Tables = lazy(() => import('../pages/Tables'));
 const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
+const LandingPage = lazy(() => import('../pages/LandingPage'));
 
 const coreRoutes = [
   {
@@ -23,6 +24,11 @@ const coreRoutes = [
     path: '/pet',
     title: 'Pet',
     component: Pet,
+  },
+  {
+    path: '/landingpage',
+    title: 'Landing Page',
+    component: LandingPage,
   },
   // {
   //   path: '/calendar',

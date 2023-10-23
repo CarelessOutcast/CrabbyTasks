@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import Home from './pages/Dashboard/Home';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
+import LandingPage from './pages/LandingPage'
 import Loader from './common/Loader';
 import routes from './routes';
 
