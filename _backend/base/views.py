@@ -2,7 +2,7 @@ import uuid
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
-from .models import task_model, user_model
+from .models import task_model#, user_model
 
 # Create your views here.
 

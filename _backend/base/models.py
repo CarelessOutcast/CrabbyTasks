@@ -1,21 +1,12 @@
 from django.db import models
+from django.conf import settings
+from django.utils import timezone
 import uuid
 
 #creates table in database for user and their information
-class user_model(models.Model):
-    id = models.UUIDField(
-            primary_key = True,
-            default     = uuid.uuid4(),
-            editable    = False
-    )
-    first_name  = models.CharField(max_length=100)
-    last_name   = models.CharField(max_length=100)
-    username    = models.CharField(max_length=50)
-    password    = models.CharField(max_length=50)
-    email       = models.CharField(max_length=100)
 
 STATUSES = (
-    ('To Do', 'To Do'),
+    ('ToDo', 'To Do'),
     ('In-Progress', 'In-Progress'),
     ('Complete', 'Complete'),
     ('Overdue', 'Overdue'),
@@ -43,22 +34,37 @@ CATEGORIES = (
     ('Other', 'Other'),
 )
 
+
 #creates table in database for tasks and their information
 class task_model(models.Model):
-    user_id         = models.ForeignKey(user_model, on_delete=models.CASCADE) #hidden
-    #The following field will contain a UUID casted to an integer as a string
+    #Add query model permissions: https://www.django-rest-framework.org/api-guide/permissions/#djangomodelpermissions
+
+    # only status=todo objects are queried
+    class tasks_objects(models.Manager):
+        def for_user(self, user):
+            return super().get_queryset().filter(user_id=user)
+
+    user_id         = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #hidden
+    # The following field will contain a UUID casted to an integer as a string
     task_id         = models.CharField(max_length=100, editable=False, default=str(uuid.uuid4())) #hidden
-    status          = models.CharField(max_length=11, choices=STATUSES, default='To Do', editable=True)
+    status          = models.CharField(max_length=11, choices=STATUSES, default='ToDo', editable=True)
     task            = models.CharField(max_length=30, editable=True)
-    description     = models.CharField(max_length=250, editable=True)
-    created_at      = models.DateTimeField('Created', auto_now_add=True)
+    description     = models.CharField(max_length=250, editable=True, default="insert description")
+    created_at      = models.DateTimeField('Created', default=timezone.now)
     updated_at      = models.DateTimeField('Updated', auto_now=True)
     deadline        = models.DateTimeField()
-    priority        = models.CharField(max_length=7, choices=PRIORITIES)
-    category        = models.CharField(max_length=8, choices=CATEGORIES)
+    priority        = models.CharField(max_length=7, choices=PRIORITIES, default=2)
+    category        = models.CharField(max_length=8, choices=CATEGORIES, default='Other')
     notifications   = models.CharField(max_length=12, choices=NOTIFICATIONS, default='None')
     # time_remaining  = models.CharField(max_length=25) #would need javascript or something to implement timer properly
+    # This is how we can specifically ask for things on ORM; Implies 
+
+    objects = models.Manager() #get all db tasks
+    tasks_objects = tasks_objects() #limited to user
     
+    class Meta:
+        ordering = ['-status',]
+
     def __str__(self):
 	    return self.task
-    
+
