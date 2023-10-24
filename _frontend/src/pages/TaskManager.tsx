@@ -1,36 +1,31 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import TaskList from '../components/TaskList';
+import {TaskChartRows} from '../components/TaskChart';
 import useAxios from '../hooks/useAxios';
+import TaskProvider from '../context/TaskProvider';
 
 // Common Interface imports
-import { Task } from '../interfaces/Task.ts';
+import { Task } from '../interfaces/Task';
 
 const TaskManager = () => {
-  const [appState, setAppState] = useState<{
-      loading:boolean;
-      tasksData:null | Task[]
-    }>({ // Do we have all tasks yet?
-    loading: true,
-    tasksData:null,
-    })
   const [calendarView, setCalendarView] = useState("Month"); //Default calendar view is monthly
   const [taskView, setTaskView] = useState(false); //Default is that task menu is not open
-  // const [taskCount , setTaskCount] = useState(0); //Default is that task menu is not open
+
   const api = useAxios();
   
   // Acquire every task the user has ever created
   // TODO: Filter for all tasks for current largest timeframe in viewfinder
   // i.e Get All tasks for Month from Backend, then use same appState.tasks
   // to filter per smaller view
-  useEffect(()=>{
-    api.get().then((res)=>{
-      console.log(res);
-      const allTasks:Task[] = res.data;
-      setAppState({loading:false, tasksData: allTasks});
-      console.log(allTasks);
-      })
-    }, [setAppState]);
+  // useEffect(()=>{
+  //   api.get().then((res)=>{
+  //     console.log(res);
+  //     const allTasks:Task[] = res.data;
+  //     setAppState({loading:false, tasksData: allTasks});
+  //     console.log(allTasks);
+  //     })
+  //   }, [setAppState]);
 
   const handleCalendarChange = (view: SetStateAction<string>) => {
     setCalendarView(view);
@@ -38,7 +33,6 @@ const TaskManager = () => {
 
   const openTasks = (date: string) => {
     setTaskView(true);
-    //Retrieve tasks for inputted date code here? <-- one day :,)
   }
 
 
@@ -394,19 +388,15 @@ const TaskManager = () => {
             <thead>
               <tr className="grid grid-cols-1 rounded-t-sm bg-primary text-white">
                 <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5 text-center">
-                  <div className="flex justify-center w-full">Sunday 1/1</div> {/* Replace with actual current date later */}
+                  {/* Replace with actual current date later */}
+                  <div className="flex justify-center w-full">
+                    Sunday 1/1
+                  </div> 
                 </th>
               </tr>
             </thead>
             <tbody>
-              {/* Weekly calendar rows */}
-              <tr className="grid grid-cols-1">
-                {/* Sunday */}
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31 flex items-center justify-center text-center">
-                  <span className="font-medium text-black dark:text-white"></span>
-                  {/* Add your content for each cell here */}
-                </td>
-              </tr>
+              <TaskChartRows/>
             </tbody>
           </table>
         </div>
@@ -416,6 +406,7 @@ const TaskManager = () => {
 
   return (
     <>
+    <TaskProvider>
       <Breadcrumb pageName="TaskManager" /> {/*Title that goes above calendar/page content */}
 
       {/* Day Week Month Buttons Start */}
@@ -445,9 +436,10 @@ const TaskManager = () => {
         openTaskList()
       )} */}
       {taskView && (
-        <TaskList setTaskView={setTaskView} tasksData={appState.tasksData}/>
+        <TaskList setTaskView={setTaskView}/>
       )}
       {/* <!-- ====== Calendar Section End ====== --> */}
+    </TaskProvider>
     </>
   );
 };

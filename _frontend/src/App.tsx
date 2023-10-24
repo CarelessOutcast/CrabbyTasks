@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState, useContext } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import TaskProvider from './context/TaskProvider';
 import AuthContext from './context/AuthContext';
 import Home from './pages/Dashboard/Home';
 import SignIn from './pages/Authentication/SignIn';
@@ -42,7 +43,11 @@ function App() {
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />
         <Route element={<DefaultLayout />}>
-          <Route index element={<Home />} />
+          <Route index element={
+            <TaskProvider>
+              <Home />
+            </TaskProvider>
+            } />
           {routes.map((routes, index) => {
             const { path, component: Component } = routes;
             return (
@@ -50,9 +55,13 @@ function App() {
                 key={index}
                 path={path}
                 element={
-                  <Suspense fallback={<Loader />}>
-                    <Component />
-                  </Suspense>
+                  <TaskProvider>
+                    <Suspense fallback={<Loader />}>
+                      <PrivateRoute>
+                          <Component />
+                      </PrivateRoute>
+                    </Suspense>
+                  </TaskProvider>
                 }
               />
             );
