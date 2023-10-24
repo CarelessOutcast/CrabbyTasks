@@ -21,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
+    permission_classes=[AllowAny]
     serializer_class = MyTokenObtainPairSerializer
 
 #Object level permission!!

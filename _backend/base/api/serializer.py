@@ -14,6 +14,7 @@ class TaskRetrieveSerializer(serializers.ModelSerializer):
                 'status',
                 'created_at',
                 'priority',
+                'category',
                 'notifications',
                 'deadline'
                 ]
@@ -27,6 +28,7 @@ class TaskCreateSerializer(serializers.ModelSerializer):
                 'description',
                 'deadline'
                 'priority',
+                'category',
                 'notifications',
                 ]
 
