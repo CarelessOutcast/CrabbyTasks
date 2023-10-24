@@ -26,6 +26,13 @@ PRIORITIES = (
     ('4', 'Low'),
     ('5', 'Lowest'),
 )
+CATEGORIES = (
+    ('Work', 'Work'),
+    ('School', 'School'),
+    ('Chores', 'Chores'),
+    ('Personal', 'Personal'),
+    ('Other', 'Other'),
+)
 
 
 #creates table in database for tasks and their information
@@ -47,6 +54,7 @@ class task_model(models.Model):
     updated_at      = models.DateTimeField('Updated', auto_now=True)
     deadline        = models.DateTimeField()
     priority        = models.CharField(max_length=7, choices=PRIORITIES, default=2)
+    category        = models.CharField(max_length=8, choices=CATEGORIES, default='Other')
     notifications   = models.CharField(max_length=12, choices=NOTIFICATIONS, default='None')
     # time_remaining  = models.CharField(max_length=25) #would need javascript or something to implement timer properly
     # This is how we can specifically ask for things on ORM; Implies 
