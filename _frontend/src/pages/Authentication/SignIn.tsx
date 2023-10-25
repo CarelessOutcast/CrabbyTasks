@@ -3,6 +3,7 @@ import AuthContext from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import Larry from '../../images/icon/larrylvl1.png'
 
 
 const SignIn = () => {
@@ -18,9 +19,10 @@ const SignIn = () => {
                 <img className="dark:hidden" src={LogoDark} alt="Logo" />
               </Link>
 
-              <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+              <p className="2xl:px-20 font italic">
+                While the crab's sideways movement may appear aimless, 
+                it symbolizes life's unpredictability, reminding us that 
+                the path to truth is often found in unexpected directions.
               </p>
 
               <span className="mt-15 inline-block">

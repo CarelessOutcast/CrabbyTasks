@@ -45,8 +45,9 @@ const SignUp = () => {
                 <img className="dark:hidden" src={LogoDark} alt="Logo" />
               </Link>
               <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+                Much like the crab, the human journey involves shedding 
+                old shells and embracing change, for growth requires the 
+                courage to leave behind the safety of the familiar.
               </p>
 
               <span className="mt-15 inline-block">
