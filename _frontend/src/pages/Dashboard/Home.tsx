@@ -14,7 +14,7 @@ import TableOne from '../../components/TableOne.tsx';
 const Home = () => {
   return (
     <>
-       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5"> {/*Total Views, Pofit, Product, and Users 'Cards' */}
+       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-5 2xl:gap-7.5"> {/*Total Views, Pofit, Product, and Users 'Cards' */}
         <CardOne />
         <CardTwo />
         <CardThree />
