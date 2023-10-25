@@ -1,9 +1,8 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import TaskList from '../components/TaskList';
-import {TaskChartRows} from '../components/TaskChart';
+import TaskChart from '../components/TaskChart';
 import useAxios from '../hooks/useAxios';
-import TaskProvider from '../context/TaskProvider';
 
 // Common Interface imports
 import { Task } from '../interfaces/Task';
@@ -12,21 +11,6 @@ const TaskManager = () => {
   const [calendarView, setCalendarView] = useState("Month"); //Default calendar view is monthly
   const [taskView, setTaskView] = useState(false); //Default is that task menu is not open
 
-  const api = useAxios();
-  
-  // Acquire every task the user has ever created
-  // TODO: Filter for all tasks for current largest timeframe in viewfinder
-  // i.e Get All tasks for Month from Backend, then use same appState.tasks
-  // to filter per smaller view
-  // useEffect(()=>{
-  //   api.get().then((res)=>{
-  //     console.log(res);
-  //     const allTasks:Task[] = res.data;
-  //     setAppState({loading:false, tasksData: allTasks});
-  //     console.log(allTasks);
-  //     })
-  //   }, [setAppState]);
-
   const handleCalendarChange = (view: SetStateAction<string>) => {
     setCalendarView(view);
   }
@@ -34,7 +18,6 @@ const TaskManager = () => {
   const openTasks = (date: string) => {
     setTaskView(true);
   }
-
 
   const MonthCalendar = () => {
     return (
@@ -384,21 +367,7 @@ const TaskManager = () => {
     return (
       <>
         <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <table className="w-full">
-            <thead>
-              <tr className="grid grid-cols-1 rounded-t-sm bg-primary text-white">
-                <th className="flex h-15 items-center justify-center rounded-tl-sm p-1 text-xs font-semibold sm:text-base xl:p-5 text-center">
-                  {/* Replace with actual current date later */}
-                  <div className="flex justify-center w-full">
-                    Sunday 1/1
-                  </div> 
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <TaskChartRows/>
-            </tbody>
-          </table>
+          <TaskChart/>
         </div>
       </>
     );
@@ -406,7 +375,6 @@ const TaskManager = () => {
 
   return (
     <>
-    <TaskProvider>
       <Breadcrumb pageName="TaskManager" /> {/*Title that goes above calendar/page content */}
 
       {/* Day Week Month Buttons Start */}
@@ -432,14 +400,10 @@ const TaskManager = () => {
       {calendarView === "Month" && (<MonthCalendar />)}
       {calendarView === "Week" && (<WeekCalendar />)}
       {calendarView === "Day" && (<DayCalendar />)}
-      {/* {taskView && (
-        openTaskList()
-      )} */}
-      {taskView && (
-        <TaskList setTaskView={setTaskView}/>
-      )}
+      {/* {taskView && ( openTaskList())} */}
+
+      {taskView && (<TaskList setTaskView={setTaskView}/>)}
       {/* <!-- ====== Calendar Section End ====== --> */}
-    </TaskProvider>
     </>
   );
 };

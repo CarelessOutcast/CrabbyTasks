@@ -1,7 +1,7 @@
-from rest_framework.exceptions import status
-from rest_framework.views import APIView
 from ..models import *
 from .serializer import *
+from django.shortcuts import get_object_or_404
+from uuid import UUID
 
 # Django REST API imports 
 from rest_framework import generics, filters
@@ -86,22 +86,35 @@ class CreateUserTask(generics.CreateAPIView):
 # ===================================================
 # UPDATE TASK
 # ===================================================
-class UpdateUserTask(generics.UpdateAPIView):
+class UpdateUserTask(generics.RetrieveUpdateAPIView):
     permission_classes=[IsAuthenticated]
     serializer_class = TaskRetrieveSerializer
     def get_queryset(self):
         current_user = self.request.user
         return task_model.objects.filter(user_id=current_user)
+    def get_object(self):
+        pk = UUID(self.kwargs.get('pk'))
+        return task_model.objects.get(task_id=pk)
+    def partial_update(self, request, *args, **kwargs):
+            instance = self.get_object()
+            serializer = self.get_serializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
 
 # ===================================================
 # DELETE TASK
 # ===================================================
-class DeleteUserTask(generics.RetrieveDestroyAPIView):
+class DeleteUserTask(generics.DestroyAPIView):
     permission_classes=[IsAuthenticated]
-    serializer_class = TaskRetrieveSerializer
+    serializer_class = TaskDeleteSerializer
     def get_queryset(self):
         current_user = self.request.user
         return task_model.objects.filter(user_id=current_user)
+
+    def get_object(self):
+        pk = UUID(self.kwargs.get('pk'))
+        return task_model.objects.get(task_id=pk)
 
 # ===================================================
 # Search for unknown single ?task=<PartialNameOfTask>
@@ -119,9 +132,16 @@ class RetriveUnknownUserTask(generics.ListCreateAPIView):
 # GET ALL DB TASKS
 # ===================================================
 class RetriveAllTasks(generics.ListCreateAPIView):
-    permission_classes=[IsAuthenticatedOrReadOnly]
+    permission_classes=[AllowAny]
     queryset = task_model.objects.all()
     serializer_class = TaskRetrieveSerializer
+
+class RetriveAllTask(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes=[AllowAny]
+    serializer_class = TaskRetrieveSerializer
+    def get_queryset(self):
+        task_id = self.request.task_id
+        return task_model.objects.all()
 
 
 

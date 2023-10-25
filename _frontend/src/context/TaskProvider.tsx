@@ -11,6 +11,7 @@ const TaskProvider = ({ children }) => {
     let { authTokens } = useContext(AuthContext);
     let [userTasks, setUserTasks] = useState({});
 
+    const navigate = useNavigate();
     const axiosInstance = useAxios();
 
     const getUserTasks = async () => {
@@ -23,41 +24,56 @@ const TaskProvider = ({ children }) => {
           console.error("Error getting Tasks");
         }
       } catch (e) {
-        console.log(e);
+        console.error(e);
       }
     }
 
-    // fields for creae
-    // 'status',
-    // 'task',
-    // 'description',
-    // 'deadline'
-    // 'priority',
-    // 'category',
-    // 'notifications',
+    const createUserTask = async (formData) => {
+      const res = await axiosInstance.post("create/",{
+        status      : formData.status,
+        task        : formData.task,
+        description : formData.description,
+        priority    : formData.priority,
+        notification: formData.notification,
+        deadline    : formData.deadline,
+        category    : formData.category,
+        })
+      const data = await res.data;
+      if (data == 200) {
+        getUserTasks();
+      }
+    }
 
-    // const createUserTask = async (e) => {
-    //     const response = await axiosInstance.post("create/",{
-    //       status:e.target.status.value,
-    //       status:e.target.task.value,
-    //       status:e.target.description.value,
-    //       status:e.target.deadline.value,
-    //       status:e.target.priority.value,
-    //       status:e.target.category.value,
-    //       status:e.target.notification.value,
-    //       })
-    //     if (response.status == 200){
-    //       let data = await response.data;
-    //       setUserTasks(data);
-    //     } else {
-    //       console.error("Error getting Tasks");
-    //     }
-    //   }
-    //
+    const deleteUserTask = async (task_id) => {
+      const res = await axiosInstance.delete(`delete/${task_id}`);
+      const data = await res.data;
+      if (data == 200) {
+        setUserTasks(userTasks.filter((x)=>x.task_id != task_id));
+      }
+    }
+
+    const updateUserTask = async (formData) => {
+      const res = await axiosInstance.patch(`update/${formData.task_id}`,{
+          status      : formData.status,
+          task        : formData.task,
+          description : formData.description,
+          priority    : formData.priority,
+          notification: formData.notification,
+          deadline    : formData.deadline,
+          category    : formData.category,
+      });
+      const data = await res.data;
+      if (data == 200) {
+         getUserTasks();
+      }
+    }
+
     let contextData = {
         userTasks:userTasks,
         setUserTasks:setUserTasks,
-        getUserTasks:getUserTasks,
+        createUserTask:createUserTask,
+        deleteUserTask:deleteUserTask,
+        updateUserTask:updateUserTask,
     }
 
     useEffect(() => {

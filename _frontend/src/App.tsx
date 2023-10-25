@@ -13,7 +13,9 @@ import routes from './routes';
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
 const PrivateRoute = ({children, ...rest}) => {
+
   let { authTokens } = useContext(AuthContext);
+
   const isAuthenticated = authTokens != null;
   return ( isAuthenticated ? (
     children
@@ -25,6 +27,7 @@ const PrivateRoute = ({children, ...rest}) => {
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
+  const [updateTask, setUpdateTask] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
@@ -34,11 +37,7 @@ function App() {
     <Loader />
   ) : (
     <>
-      <Toaster
-        position="top-right"
-        reverseOrder={false}
-        containerClassName="overflow-auto"
-      />
+      <Toaster position="top-right" reverseOrder={false} containerClassName="overflow-auto" />
       <Routes>
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />

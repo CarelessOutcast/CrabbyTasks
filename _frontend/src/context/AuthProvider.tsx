@@ -18,17 +18,14 @@ const AuthProvider = ({ children }) => {
     const loginUser = async (e) => {
       try{
         e.preventDefault();
-        console.log("Form Submitted",e);
         const res = await axiosInstance.post(`token/`,
         {
           email:e.target.email.value,
           password:e.target.password.value
           }
         );
-        console.log("Response: ", res)
         if (res.status === 200){
           let data = await res.data;
-          console.log("Data: ",data)
           setAuthTokens(()=>data);
           // const decoded = jwt_decode(data.access).username;
           // setUsername(()=>decoded);
@@ -58,7 +55,7 @@ const AuthProvider = ({ children }) => {
     }
     useEffect(() => {
         if(authTokens){
-            console.log("Auth tokens: ", authTokens);
+            //console.log("Auth tokens: ", authTokens);
             // console.log("Access Token: ",JSON.parse(authTokens).access);
             // const decoded = jwt_decode(authTokens.access).username;
             // console.log("username: ",decoded);

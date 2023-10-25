@@ -45,8 +45,7 @@ class task_model(models.Model):
             return super().get_queryset().filter(user_id=user)
 
     user_id         = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #hidden
-    # The following field will contain a UUID casted to an integer as a string
-    task_id         = models.CharField(max_length=100, editable=False, default=str(uuid.uuid4())) #hidden
+    task_id         = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     status          = models.CharField(max_length=11, choices=STATUSES, default='ToDo', editable=True)
     task            = models.CharField(max_length=30, editable=True)
     description     = models.CharField(max_length=250, editable=True, default="insert description")
@@ -59,8 +58,8 @@ class task_model(models.Model):
     # time_remaining  = models.CharField(max_length=25) #would need javascript or something to implement timer properly
     # This is how we can specifically ask for things on ORM; Implies 
 
-    objects = models.Manager() #get all db tasks
-    tasks_objects = tasks_objects() #limited to user
+    objects = models.Manager() 
+    tasks_objects = tasks_objects() 
     
     class Meta:
         ordering = ['-status',]
