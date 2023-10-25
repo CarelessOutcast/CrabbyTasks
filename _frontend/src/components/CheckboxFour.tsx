@@ -36,13 +36,13 @@ const CheckboxFour = () => {
         Desktop Notifications
       </label>
       <label
-        htmlFor="checkboxLabelFour"
+        htmlFor="checkboxLabelFour_sec"
         className="flex cursor-pointer select-none items-center"
       >
         <div className="relative2">
           <input
             type="checkbox"
-            id="checkboxLabelFour"
+            id="checkboxLabelFour_sec"
             className="sr-only"
             onChange={() => {
               secSetIsChecked(!secIsChecked);
