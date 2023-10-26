@@ -15,9 +15,22 @@ const TaskModal = ( props ) =>{
       });
     };
     // Event handler to handle form submission
+  const handleExit = (e) => {
+    e.preventDefault();
+    setFormData({
+        status:'ToDo',
+        task:'',
+        description:'',
+        deadline:dayjs(),
+        priority:'5',
+        category:'Other',
+        notification:'None',
+    });
+    onClose();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     updateUserTask(formData);
     setFormData({
         status:'ToDo',
@@ -35,6 +48,13 @@ const TaskModal = ( props ) =>{
     <>
     <div className="fixed inset-0 bg-black opacity-40"></div>
       <div className="relative z-50 w-full max-w-md p-6 mx-auto bg-white rounded-lg shadow-lg">
+        <button onClick={handleExit} className="absolute top-0 right-0 p-4 hover:text-primary text-gray-500">
+          <svg className="fill-current text-red-500" width="20" height="20" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" >
+            <g opacity="0.8"> 
+              <path d="M6 18L18 6M6 6l12 12" /> 
+            </g> 
+          </svg>
+        </button>
         <form onSubmit={handleSubmit}>
           <div className="p-6.5">
               <div className="mb-3">

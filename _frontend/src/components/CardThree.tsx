@@ -1,40 +1,152 @@
+import {useEffect, useState} from 'react'
+
+const tempdb = [
+  {
+      "task_id": "397bd988-f431-46f9-8f24-28b4f066fb5c",
+      "user_id": 10,
+      "task": "Some Task",
+      "description": "More Description",
+      "status": "ToDo",
+      "created_at": "2023-10-21T20:57:41Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-22T15:57:00Z"
+  },
+  {
+      "task_id": "e6606d0a-2a90-48a0-a70e-fd9aac30b36a",
+      "user_id": 1,
+      "task": "Yahyeet",
+      "description": "Kokonut",
+      "status": "ToDo",
+      "created_at": "2023-10-24T17:10:27Z",
+      "priority": "2",
+      "category": "Chores",
+      "notifications": "Both",
+      "deadline": "2023-10-25T17:11:01Z"
+  },
+  {
+      "task_id": "21a85446-e164-4ac0-a1d6-62fae5122e43",
+      "user_id": 1,
+      "task": "Login Logic",
+      "description": "Create the Backend logic for Sign in",
+      "status": "ToDo",
+      "created_at": "2023-10-20T10:24:43Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-21T00:00:00Z"
+  },
+  {
+      "task_id": "7387f95c-6f9f-4ac5-af0d-aa4d1ea02dc5",
+      "user_id": 1,
+      "task": "Another Tasks for myself",
+      "description": "Tsk Tsk",
+      "status": "Overdue",
+      "created_at": "2023-10-22T00:33:02Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-23T19:32:00Z"
+  },
+  {
+      "task_id": "c901843f-702f-44b8-8072-c3740e4eaf6a",
+      "user_id": 10,
+      "task": "Completed Example",
+      "description": "I did it!",
+      "status": "Overdue",
+      "created_at": "2023-10-21T19:36:00Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-06T19:36:00Z"
+  },
+  {
+      "task_id": "397bd988-f431-46f9-8f24-28b4f066fb5c",
+      "user_id": 10,
+      "task": "Another Task",
+      "description": "Task Description",
+      "status": "In-Progress",
+      "created_at": "2023-10-21T20:57:08Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-22T15:57:00Z"
+  },
+  {
+      "task_id": "7387f95c-6f9f-4ac5-af0d-aa4d1ea02dc5",
+      "user_id": 1,
+      "task": "Filtering Views per user",
+      "description": "Right now I have access to everything for simplicity",
+      "status": "In-Progress",
+      "created_at": "2023-10-22T00:32:30Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-23T19:32:00Z"
+  },
+  {
+      "task_id": "451812ec-7859-44bd-8584-8485be3f7068",
+      "user_id": 1,
+      "task": "Careless DONE",
+      "description": "Careless DONE",
+      "status": "Complete",
+      "created_at": "2023-10-22T00:47:02.284487Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-22T19:46:00Z"
+  },
+  {
+      "task_id": "94241c3f-13c6-4c49-bca3-fc2342e522ce",
+      "user_id": 10,
+      "task": "carlos finish",
+      "description": "carlos finished this task",
+      "status": "Complete",
+      "created_at": "2023-10-22T00:43:38.602153Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-12T19:43:00Z"
+  }
+];
+
+const itemCounter = (index : String) => {
+  return tempdb.filter((x) => x.status == index).length;
+};
+
 const CardThree = () => {
+  const [completedTasks, setCompletedTasks] = useState(itemCounter("Complete"));
+  useEffect(() => {
+    [completedTasks, itemCounter("Completed")];
+  }
+  
+  )
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
-      <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-        <svg
-          className="fill-primary dark:fill-white"
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M21.1063 18.0469L19.3875 3.23126C19.2157 1.71876 17.9438 0.584381 16.3969 0.584381H5.56878C4.05628 0.584381 2.78441 1.71876 2.57816 3.23126L0.859406 18.0469C0.756281 18.9063 1.03128 19.7313 1.61566 20.3844C2.20003 21.0375 2.99066 21.3813 3.85003 21.3813H18.1157C18.975 21.3813 19.8 21.0031 20.35 20.3844C20.9 19.7656 21.2094 18.9063 21.1063 18.0469ZM19.2157 19.3531C18.9407 19.6625 18.5625 19.8344 18.15 19.8344H3.85003C3.43753 19.8344 3.05941 19.6625 2.78441 19.3531C2.50941 19.0438 2.37191 18.6313 2.44066 18.2188L4.12503 3.43751C4.19378 2.71563 4.81253 2.16563 5.56878 2.16563H16.4313C17.1532 2.16563 17.7719 2.71563 17.875 3.43751L19.5938 18.2531C19.6282 18.6656 19.4907 19.0438 19.2157 19.3531Z"
-            fill=""
-          />
-          <path
-            d="M14.3345 5.29375C13.922 5.39688 13.647 5.80938 13.7501 6.22188C13.7845 6.42813 13.8189 6.63438 13.8189 6.80625C13.8189 8.35313 12.547 9.625 11.0001 9.625C9.45327 9.625 8.1814 8.35313 8.1814 6.80625C8.1814 6.6 8.21577 6.42813 8.25015 6.22188C8.35327 5.80938 8.07827 5.39688 7.66577 5.29375C7.25327 5.19063 6.84077 5.46563 6.73765 5.87813C6.6689 6.1875 6.63452 6.49688 6.63452 6.80625C6.63452 9.2125 8.5939 11.1719 11.0001 11.1719C13.4064 11.1719 15.3658 9.2125 15.3658 6.80625C15.3658 6.49688 15.3314 6.1875 15.2626 5.87813C15.1595 5.46563 14.747 5.225 14.3345 5.29375Z"
-            fill=""
-          />
-        </svg>
+      <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-[#34D399]">
+      <svg
+                width="16"
+                height="12"
+                viewBox="0 0 16 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.2984 0.826822L15.2868 0.811827L15.2741 0.797751C14.9173 0.401867 14.3238 0.400754 13.9657 0.794406L5.91888 9.45376L2.05667 5.2868C1.69856 4.89287 1.10487 4.89389 0.747996 5.28987C0.417335 5.65675 0.417335 6.22337 0.747996 6.59026L0.747959 6.59029L0.752701 6.59541L4.86742 11.0348C5.14445 11.3405 5.52858 11.5 5.89581 11.5C6.29242 11.5 6.65178 11.3355 6.92401 11.035L15.2162 2.11161C15.5833 1.74452 15.576 1.18615 15.2984 0.826822Z"
+                  fill="white"
+                  stroke="white"
+                ></path>
+              </svg>
       </div>
 
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            35
+            {itemCounter("Complete")}
           </h4>
-          <span className="text-sm font-medium">Total Completed</span>
+          <span className="text-sm font-medium">Completed Tasks</span>
         </div>
-
-        <span className="flex items-center gap-1 text-sm font-medium text-meta-3">
-          Connect Me
-          <svg className="fill-meta-3" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M4.35716 2.47737L0.908974 5.82987L5.0443e-07 4.94612L5 0.0848689L10 4.94612L9.09103 5.82987L5.64284 2.47737L5.64284 10.0849L4.35716 10.0849L4.35716 2.47737Z" fill="" />
-          </svg>
-        </span>
       </div>
     </div>
   );

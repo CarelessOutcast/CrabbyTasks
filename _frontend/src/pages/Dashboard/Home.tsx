@@ -12,11 +12,12 @@ import TaskLarge from '../../components/TaskLarge.tsx';
 import TaskChart from '../../components/TaskChart.tsx';
 
 
+
+
 const Home = () => {
   return (
     <>
-       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5"> 
-       {/* Total Views, Pofit, Product, and Users 'Cards' */}
+       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-5 2xl:gap-7.5"> {/*Total Views, Pofit, Product, and Users 'Cards' */}
         <CardOne />
         <CardTwo />
         <CardThree />
@@ -24,6 +25,9 @@ const Home = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
+        <div className="col-span-4 xl:col-span-8">
+          <TaskChart />
+        </div>
         <div className="col-span-4 xl:col-span-4">
           <TaskLarge />
         </div>

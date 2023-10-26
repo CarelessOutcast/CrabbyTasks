@@ -2,6 +2,121 @@ import { ApexOptions } from 'apexcharts';
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
+const tempdb = [
+  {
+      "task_id": "397bd988-f431-46f9-8f24-28b4f066fb5c",
+      "user_id": 10,
+      "task": "Some Task",
+      "description": "More Description",
+      "status": "ToDo",
+      "created_at": "2023-10-21T20:57:41Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-22T15:57:00Z"
+  },
+  {
+      "task_id": "e6606d0a-2a90-48a0-a70e-fd9aac30b36a",
+      "user_id": 1,
+      "task": "Yahyeet",
+      "description": "Kokonut",
+      "status": "ToDo",
+      "created_at": "2023-10-24T17:10:27Z",
+      "priority": "2",
+      "category": "Chores",
+      "notifications": "Both",
+      "deadline": "2023-10-25T17:11:01Z"
+  },
+  {
+      "task_id": "21a85446-e164-4ac0-a1d6-62fae5122e43",
+      "user_id": 1,
+      "task": "Login Logic",
+      "description": "Create the Backend logic for Sign in",
+      "status": "ToDo",
+      "created_at": "2023-10-20T10:24:43Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-21T00:00:00Z"
+  },
+  {
+      "task_id": "7387f95c-6f9f-4ac5-af0d-aa4d1ea02dc5",
+      "user_id": 1,
+      "task": "Another Tasks for myself",
+      "description": "Tsk Tsk",
+      "status": "Overdue",
+      "created_at": "2023-10-22T00:33:02Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-23T19:32:00Z"
+  },
+  {
+      "task_id": "c901843f-702f-44b8-8072-c3740e4eaf6a",
+      "user_id": 10,
+      "task": "Completed Example",
+      "description": "I did it!",
+      "status": "Overdue",
+      "created_at": "2023-10-21T19:36:00Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-06T19:36:00Z"
+  },
+  {
+      "task_id": "397bd988-f431-46f9-8f24-28b4f066fb5c",
+      "user_id": 10,
+      "task": "Another Task",
+      "description": "Task Description",
+      "status": "In-Progress",
+      "created_at": "2023-10-21T20:57:08Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-22T15:57:00Z"
+  },
+  {
+      "task_id": "7387f95c-6f9f-4ac5-af0d-aa4d1ea02dc5",
+      "user_id": 1,
+      "task": "Filtering Views per user",
+      "description": "Right now I have access to everything for simplicity",
+      "status": "In-Progress",
+      "created_at": "2023-10-22T00:32:30Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-23T19:32:00Z"
+  },
+  {
+      "task_id": "451812ec-7859-44bd-8584-8485be3f7068",
+      "user_id": 1,
+      "task": "Careless DONE",
+      "description": "Careless DONE",
+      "status": "Complete",
+      "created_at": "2023-10-22T00:47:02.284487Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-22T19:46:00Z"
+  },
+  {
+      "task_id": "94241c3f-13c6-4c49-bca3-fc2342e522ce",
+      "user_id": 10,
+      "task": "carlos finish",
+      "description": "carlos finished this task",
+      "status": "Complete",
+      "created_at": "2023-10-22T00:43:38.602153Z",
+      "priority": "1",
+      "category": "Other",
+      "notifications": "None",
+      "deadline": "2023-10-12T19:43:00Z"
+  }
+];
+
+const itemCounter = (index : String) => {
+  return tempdb.filter((x) => x.status == index).length;
+};
+
 interface ChartThreeState {
   series: number[];
 }
@@ -11,7 +126,7 @@ const options: ApexOptions = {
     type: 'donut',
   },
   colors: ['#10B981', '#375E83', '#259AE6', '#FFA70B'],
-  labels: ['Completed', 'Incomplete', 'Pending', 'Past'],
+  labels: ['Complete', 'ToDo', 'Overdue', 'In-Progress'],
   legend: {
     show: true,
     position: 'bottom',
@@ -72,7 +187,7 @@ const ChartThree: React.FC = () => {
       },
     ];
   const [state, setState] = useState<ChartThreeState>({
-    series: [65, 34, 12, 56],
+    series: [itemCounter("Complete"), itemCounter("ToDo"), itemCounter("Overdue"), itemCounter("In-Progress")],
   });
 
   return (
@@ -80,7 +195,7 @@ const ChartThree: React.FC = () => {
       <div className="mb-3 justify-between gap-4 sm:flex">
         <div>
           <h5 className="text-xl font-semibold text-black dark:text-white">
-            Visitors Analytics
+            Task Analytics
           </h5>
         </div>
         <div>
@@ -133,7 +248,7 @@ const ChartThree: React.FC = () => {
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#10B981]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Completed </span>
-              <span> 65% </span>
+              <span> {tempdb.length > 0 ? ((state.series.at(0) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
@@ -142,8 +257,8 @@ const ChartThree: React.FC = () => {
           <div className="flex w-full items-center">
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#375E83]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-              <span> Incomplete </span>
-              <span> 34% </span>
+              <span> To-Do </span>
+              <span> {tempdb.length > 0 ? ((state.series.at(1) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
@@ -152,8 +267,8 @@ const ChartThree: React.FC = () => {
           <div className="flex w-full items-center">
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#259AE6]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-              <span> Past </span>
-              <span> 45% </span>
+              <span> Overdue </span>
+              <span> {tempdb.length > 0 ? ((state.series.at(2) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
@@ -162,8 +277,8 @@ const ChartThree: React.FC = () => {
           <div className="flex w-full items-center">
             <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#FFA70B]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
-              <span> Pending </span>
-              <span> 12% </span>
+              <span> In-Progress </span>
+              <span> {tempdb.length > 0 ? ((state.series.at(3) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
