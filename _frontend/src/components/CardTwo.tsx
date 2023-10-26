@@ -138,6 +138,7 @@ const CardTwo = () => {
             fill=""
            />
         </svg>
+
       </div>
 
       <div className="mt-4 flex items-end justify-between">
