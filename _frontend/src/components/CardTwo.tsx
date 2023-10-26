@@ -109,8 +109,8 @@ const tempdb = [
   }
 ];
 
-const itemCounter = (index : String, index2 : String) => {
-  return tempdb.filter((x) => x.status == index || x.status == index2).length;
+const itemCounter = (index : String) => {
+  return tempdb.filter((x) => x.status == index).length;
 };
 
 const CardTwo = () => {
@@ -144,7 +144,7 @@ const CardTwo = () => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            {itemCounter("ToDo", "In-Progress")}
+            {itemCounter("ToDo")}
           </h4>
           <span className="text-sm font-medium">Tasks To-Do</span>
         </div>

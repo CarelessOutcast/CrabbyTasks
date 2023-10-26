@@ -1,4 +1,5 @@
 import CardFour from '../../components/CardFour.tsx';
+import CardFive from '../../components/CardFive.tsx';
 import CardOne from '../../components/CardOne.tsx';
 import CardThree from '../../components/CardThree.tsx';
 import CardTwo from '../../components/CardTwo.tsx';
@@ -19,9 +20,11 @@ const Home = () => {
     <>
        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-5 2xl:gap-7.5"> {/*Total Views, Pofit, Product, and Users 'Cards' */}
         <CardOne />
+        <CardFive />
         <CardTwo />
         <CardThree />
         <CardFour />
+        
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
