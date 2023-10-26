@@ -35,8 +35,6 @@ const CardOne = () => {
           </h4>
           <span className="text-sm font-medium">Task Completion Score</span>
         </div>
-
-        
       </div>
     </div>
   );

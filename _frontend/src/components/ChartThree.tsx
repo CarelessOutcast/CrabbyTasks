@@ -164,12 +164,34 @@ const options: ApexOptions = {
 };
 
 const ChartThree: React.FC = () => {
+  const chartItems = [
+    {
+      title: "Completed",
+      percent: 65,
+      color:'Primary',
+      },
+    {
+      title: "Incomplete",
+      percent: 34,
+      color:'Primary',
+      },
+    {
+      title: "Past",
+      percent: 12,
+      color:'Primary',
+      },
+    {
+      title: "Past",
+      percent: 56,
+      color:'Primary',
+      },
+    ];
   const [state, setState] = useState<ChartThreeState>({
     series: [itemCounter("Complete"), itemCounter("ToDo"), itemCounter("Overdue"), itemCounter("In-Progress")],
   });
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-5">
+    <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pt-7.5 pb-5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:col-span-4">
       <div className="mb-3 justify-between gap-4 sm:flex">
         <div>
           <h5 className="text-xl font-semibold text-black dark:text-white">
@@ -223,41 +245,46 @@ const ChartThree: React.FC = () => {
       <div className="-mx-8 flex flex-wrap items-center justify-center gap-y-3">
         <div className="w-full px-8 sm:w-1/2">
           <div className="flex w-full items-center">
-            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-primary"></span>
+            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#10B981]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Completed </span>
               <span> {tempdb.length > 0 ? ((state.series.at(0) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
+
         <div className="w-full px-8 sm:w-1/2">
           <div className="flex w-full items-center">
-            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#6577F3]"></span>
+            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#375E83]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> To-Do </span>
               <span> {tempdb.length > 0 ? ((state.series.at(1) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
+
         <div className="w-full px-8 sm:w-1/2">
           <div className="flex w-full items-center">
-            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#8FD0EF]"></span>
+            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#259AE6]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> Overdue </span>
               <span> {tempdb.length > 0 ? ((state.series.at(2) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
+
         <div className="w-full px-8 sm:w-1/2">
           <div className="flex w-full items-center">
-            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#0FADCF]"></span>
+            <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-[#FFA70B]"></span>
             <p className="flex w-full justify-between text-sm font-medium text-black dark:text-white">
               <span> In-Progress </span>
               <span> {tempdb.length > 0 ? ((state.series.at(3) / tempdb.length) * 100).toFixed(0) : 0}% </span>
             </p>
           </div>
         </div>
+
       </div>
+
     </div>
   );
 };

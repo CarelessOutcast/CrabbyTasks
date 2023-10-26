@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from ..models import * 
+import uuid
 
 
 class TaskRetrieveSerializer(serializers.ModelSerializer):
@@ -26,7 +27,7 @@ class TaskCreateSerializer(serializers.ModelSerializer):
                 'status',
                 'task',
                 'description',
-                'deadline'
+                'deadline',
                 'priority',
                 'category',
                 'notifications',
@@ -37,6 +38,14 @@ class TaskCreateSerializer(serializers.ModelSerializer):
         task = task_model.objects.create(user_id=user, **validated_data)
         return task
 
+
+class TaskDeleteSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = task_model
+        fields = [
+                'task_id',
+                ]
+    
 
 
 #JWT Auth
