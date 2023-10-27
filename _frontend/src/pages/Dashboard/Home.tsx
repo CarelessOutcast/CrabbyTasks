@@ -11,6 +11,7 @@ import MapOne from '../../components/MapOne.tsx';
 import TableOne from '../../components/TableOne.tsx';
 import TaskLarge from '../../components/TaskLarge.tsx';
 import TaskChart from '../../components/TaskChart.tsx';
+import dayjs from 'dayjs';
 
 
 
@@ -29,7 +30,7 @@ const Home = () => {
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <div className="col-span-4 xl:col-span-8">
-          <TaskChart />
+          <TaskChart date={dayjs().date().toString()}/>
         </div>
         <div className="col-span-4 xl:col-span-4">
           <TaskLarge />
