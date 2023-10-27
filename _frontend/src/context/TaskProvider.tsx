@@ -7,7 +7,7 @@ import Loader from "../common/Loader/index";
 import AuthContext from './AuthContext';
 import TaskContext from './TaskContext';
 
-const TaskProvider = ({ children }) => {
+export const TaskProvider = ({ children }) => {
     let { authTokens } = useContext(AuthContext);
     let [userTasks, setUserTasks] = useState({});
 
