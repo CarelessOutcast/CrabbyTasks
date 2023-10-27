@@ -38,6 +38,30 @@ const AuthProvider = ({ children }) => {
         console.error("Error with login: ", e)
       }
     };
+
+    const signupUser = async (e) => {
+      try{
+        e.preventDefault();
+        const res = await axiosInstance.post(`token/`,
+        {
+          email:e.target.email.value,
+          password:e.target.password.value
+          }
+        );
+        if (res.status === 200){
+          let data = await res.data;
+          setAuthTokens(()=>data);
+          // const decoded = jwt_decode(data.access).username;
+          // setUsername(()=>decoded);
+          localStorage.setItem('authTokens', JSON.stringify(data));
+          navigate('/');
+        } else {
+          console.error("It shouldn't get here");
+        }
+      } catch (e){
+        console.error("Error with login: ", e)
+      }
+    };
     
     let logoutUser = () => {
         setAuthTokens(null);

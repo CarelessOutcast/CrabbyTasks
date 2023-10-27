@@ -11,21 +11,34 @@ import MapOne from '../../components/MapOne.tsx';
 import TableOne from '../../components/TableOne.tsx';
 import TaskLarge from '../../components/TaskLarge.tsx';
 import TaskChart from '../../components/TaskChart.tsx';
+import Loader from '../../common/Loader/index';
 
-
+import useTaskContext from '../../hooks/useTaskContext';
+import {useEffect} from 'react';
 
 
 const Home = () => {
+  const {userTasksStats} = useTaskContext();
+  useEffect(()=>{
+    console.log(userTasksStats.current);
+    },[userTasksStats]);
+  
   return (
     <>
-       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-5 2xl:gap-7.5"> {/*Total Views, Pofit, Product, and Users 'Cards' */}
-        <CardOne />
-        <CardFive />
-        <CardTwo />
-        <CardThree />
-        <CardFour />
-        
+    { userTasksStats ? 
+      (
+       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-5 2xl:gap-7.5"> 
+       {/*Total Views, Pofit, Product, and Users 'Cards' */}
+        <CardOne   userTasksStats={userTasksStats} />
+        <CardFive  userTasksStats={userTasksStats} />
+        <CardTwo   userTasksStats={userTasksStats} />
+        <CardThree userTasksStats={userTasksStats} />
+        <CardFour  userTasksStats={userTasksStats} />
       </div>
+      ) : (
+        <div>Loading Cards...</div>
+      )
+    }
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
         <div className="col-span-4 xl:col-span-8">

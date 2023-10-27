@@ -1,46 +1,11 @@
-import TaskContext from '../context/TaskContext';
+import useTaskContext from '../hooks/useTaskContext';
 import dayjs from 'dayjs';
 import { useContext, useState } from 'react';
-// fields = [
-//         'status',
-//         'task',
-//         'description',
-//         'deadline'
-//         'priority',
-//         'category',
-//         'notifications',
-//         ]
-// STATUSES = (
-//     ('ToDo', 'To Do'),
-//     ('In-Progress', 'In-Progress'),
-//     ('Complete', 'Complete'),
-//     ('Overdue', 'Overdue'),
-// )
-//
-// NOTIFICATIONS = (
-//     ('None', 'None'),
-//     ('Desktop Only', 'Desktop Only'),
-//     ('Email Only', 'Email Only'),
-//     ('Both', 'Both'),
-// )
-//
-// PRIORITIES = (
-//     ('1', 'Highest'),
-//     ('2', 'High'),
-//     ('3', 'Medium'),
-//     ('4', 'Low'),
-//     ('5', 'Lowest'),
-// )
-// CATEGORIES = (
-//     ('Work', 'Work'),
-//     ('School', 'School'),
-//     ('Chores', 'Chores'),
-//     ('Personal', 'Personal'),
-//     ('Other', 'Other'),
-// )
 
 const TaskLarge = () =>{
-  const {createUserTask} = useContext(TaskContext);
+
+  const { createUserTask } = useTaskContext();
+
   const [formData, setFormData] = useState({
         status:'ToDo',
         task:'',
@@ -50,6 +15,7 @@ const TaskLarge = () =>{
         category:'Other',
         notification:'None',
     });
+
   const handleInputChange = (e) => {
     const {name, value} = e.target;
     setFormData({
@@ -60,7 +26,6 @@ const TaskLarge = () =>{
     // Event handler to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can perform form submission logic here, e.g., send data to a server
     createUserTask(formData);
     setFormData({
         status:'ToDo',
