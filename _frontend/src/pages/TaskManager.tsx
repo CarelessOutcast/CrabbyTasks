@@ -7,9 +7,16 @@ import useAxios from '../hooks/useAxios';
 // Common Interface imports
 import { Task } from '../interfaces/Task';
 
+import { useContext } from 'react';
+import React, { ComponentType } from 'react';
+import Loader from '../common/Loader';
+import TaskContext from '../context/TaskContext';
+import TaskProvider from '../context/TaskProvider';
+
 const TaskManager = () => {
   const [calendarView, setCalendarView] = useState("Month"); //Default calendar view is monthly
   const [taskView, setTaskView] = useState(false); //Default is that task menu is not open
+  const [canCheckDates, setDateBool] = useState(false);
 
   const handleCalendarChange = (view: SetStateAction<string>) => {
     setCalendarView(view);
@@ -17,7 +24,23 @@ const TaskManager = () => {
 
   const openTasks = (date: string) => {
     setTaskView(true);
+    setDateBool(true);
   }
+
+  const {userTasks, getUserTasks} = useContext(TaskContext);
+
+  const handleDateCheck = (dateDay : String) => {
+    if (canCheckDates == true && userTasks.length != 0)
+    {
+      
+      return userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && x.status == "ToDo").length;
+    }
+    else
+    {
+      return 0;
+    }
+  };
+
 
   const MonthCalendar = () => {
     return (
@@ -61,37 +84,81 @@ const TaskManager = () => {
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    1
+                    <div>
+                      1
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("01")}    
+                    </div>
+                  </span>
+
+                  
+                </td>
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                  <span className="font-medium text-black dark:text-white">
+                  <div>
+                      2
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("02")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    2
+                  <div>
+                      3
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("03")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    3
+                  <div>
+                      4
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("04")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    4
+                  <div>
+                      5
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("05")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    5
+                  <div>
+                      6
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("06")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    6
-                  </span>
-                </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
-                    7
+                  <div>
+                      7
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("07")}    
+                    </div>
                   </span>
                 </td>
               </tr>
@@ -100,37 +167,79 @@ const TaskManager = () => {
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    8
+                  <div>
+                      8
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("08")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    9
+                  <div>
+                      9
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("09")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    10
+                  <div>
+                      10
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("10")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    11
+                  <div>
+                      11
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("11")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    12
+                  <div>
+                      12
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("12")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    13
+                  <div>
+                      13
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("13")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    14
+                  <div>
+                      14
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("14")}    
+                    </div>
                   </span>
                 </td>
               </tr>
@@ -139,37 +248,79 @@ const TaskManager = () => {
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    15
+                  <div>
+                      15
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("15")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    16
+                  <div>
+                      16
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("16")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    17
+                  <div>
+                      17
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("17")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    18
+                  <div>
+                      18
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("18")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    19
+                  <div>
+                      19
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("19")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    20
+                  <div>
+                      20
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("20")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    21
+                  <div>
+                      21
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("21")}    
+                    </div>
                   </span>
                 </td>
               </tr>
@@ -178,37 +329,79 @@ const TaskManager = () => {
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    22
+                  <div>
+                      22
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("22")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    23
+                  <div>
+                      23
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("23")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    24
+                  <div>
+                      24
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("24")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    25
+                  <div>
+                      25
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("25")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    26
+                  <div>
+                      26
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("26")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    27
+                  <div>
+                      27
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("27")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    28
+                  <div>
+                      28
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("28")}    
+                    </div>
                   </span>
                 </td>
               </tr>
@@ -217,35 +410,53 @@ const TaskManager = () => {
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    29
+                  <div>
+                      29
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("29")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    30
+                  <div>
+                      30
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("30")}    
+                    </div>
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
-                    31
+                  <div>
+                      31
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("31")}    
+                    </div>
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     1
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     2
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     3
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     4
                   </span>
@@ -295,38 +506,98 @@ const TaskManager = () => {
               <tr className="grid grid-cols-7">
                 {/* Sunday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                  onClick={() => openTasks("1/1")}>
-                  <span className="font-medium text-black dark:text-white">1</span>
-                  {/* Add your content for each cell here */}
+                  onClick={() => openTasks("1/1") }>
+                  <span className="font-medium text-black dark:text-white">
+                  <div>
+                      22
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("22")}    
+                    </div>
+                    
+                  </span>
                 </td>
                 {/* Monday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">2</span>
+                  <span className="font-medium text-black dark:text-white">
+                  <div>
+                      23
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("23")}    
+                    </div>
+                    
+                    </span>
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Tuesday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">3</span>
+                  <span className="font-medium text-black dark:text-white">
+                    
+                  <div>
+                      24
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("24")}    
+                    </div>
+                    
+                    </span>
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Wednesday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">4</span>
+                  <span className="font-medium text-black dark:text-white">
+                  <div>
+                      25
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("25")}    
+                    </div>
+                    
+                    </span>
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Thursday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">5</span>
+                  <span className="font-medium text-black dark:text-white">
+                  <div>
+                      26
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("26")}    
+                    </div>
+                    </span>
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Friday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">6</span>
+                  <span className="font-medium text-black dark:text-white">
+                  <div>
+                      27
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("27")}    
+                    </div>
+                  </span>
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Saturday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">7</span>
+                  <span className="font-medium text-black dark:text-white">
+                  <div>
+                      28
+                    </div>    
+                    <div className="ml-40 mt-8 text-danger">
+
+                      {handleDateCheck("28")}    
+                    </div>
+                    </span>
                   {/* Add your content for each cell here */}
                 </td>
               </tr>
