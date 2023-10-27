@@ -43,10 +43,11 @@ function App() {
         <Route path="/pages/landingpage" element={<LandingPage />} />
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />
+        <Route path="/pages/taskmanager" element={<TaskManager />} />
         <Route element={<DefaultLayout />}>
           <Route index element={
             <TaskProvider>
-              <Home />
+              <TaskManager />
             </TaskProvider>
             } />
           {routes.map((routes, index) => {

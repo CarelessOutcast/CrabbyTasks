@@ -35,7 +35,8 @@ const TaskManager = () => {
   const handleDateCheck = (dateDay : String) => {
     if (canCheckDates == true && userTasks.length != 0)
     {
-      const holdCount = userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && x.status == "ToDo").length
+      const holdCount = userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && (x.status == "ToDo" ||
+      x.status == "In-Progress" || x.status == "Overdue")).length
       if (holdCount == 0)
       {
         return "";

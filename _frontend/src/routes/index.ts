@@ -13,12 +13,18 @@ const Tables = lazy(() => import('../pages/Tables'));
 const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 const LandingPage = lazy(() => import('../pages/LandingPage'));
+const Home = lazy(() => import('../pages/Dashboard/Home'));
 
 const coreRoutes = [
   {
     path: '/taskManager',
     title: 'Task Manager',
     component: TaskManager,
+  },
+  {
+    path: '/home',
+    title: 'Home',
+    component: Home,
   },
   {
     path: '/pet',
