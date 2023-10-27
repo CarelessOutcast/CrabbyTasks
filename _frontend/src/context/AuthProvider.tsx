@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
         setAuthTokens(null);
         // setUsername(null);
         localStorage.removeItem('authTokens');
-        navigate('/auth/signin');
+        navigate('/pages/landingpage');
     }
     let contextData = {
         // username:username,

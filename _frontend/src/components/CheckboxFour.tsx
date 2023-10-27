@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const CheckboxFour = () => {
-  const [firIsChecked, firSetIsChecked] = useState<boolean>(false);
+  const [firIsChecked, firSetIsChecked] = useState<boolean>(true);
   const [secIsChecked, secSetIsChecked] = useState<boolean>(false);
 
   return (
@@ -16,6 +16,7 @@ const CheckboxFour = () => {
             id="checkboxLabelFour"
             className="sr-only"
             onChange={() => {
+              secSetIsChecked(!secIsChecked);
               firSetIsChecked(!firIsChecked);
             }}
           />
@@ -46,6 +47,8 @@ const CheckboxFour = () => {
             className="sr-only"
             onChange={() => {
               secSetIsChecked(!secIsChecked);
+              firSetIsChecked(!firIsChecked);
+              
             }}
           />
           <div
