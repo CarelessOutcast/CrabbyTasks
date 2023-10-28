@@ -1,10 +1,10 @@
-import TaskContext from '../context/TaskContext';
+import useTaskContext from '../hooks/useTaskContext';
 import dayjs from 'dayjs';
 import { useContext, useState, useEffect } from 'react';
 
 const TaskModal = ( props ) =>{
   const { taskData, onClose } = props;
-  const { updateUserTask } = useContext(TaskContext);
+  const { updateUserTask } = useTaskContext();
   const [formData, setFormData] = useState(taskData);
 
   const handleInputChange = (e) => {

@@ -77,32 +77,3 @@ function App() {
 export default App;
 
 
-    // <>
-    //   <Toaster
-    //     position="top-right"
-    //     reverseOrder={false}
-    //     containerClassName="overflow-auto"
-    //   />
-    //   <Routes>
-    //     <Route path="/auth/signin" element={<SignIn />} />
-    //     <Route path="/auth/signup" element={<SignUp />} />
-    //     <Route element={<DefaultLayout />}>
-    //       <Route index element={<Home />} />
-    //       {routes.map((routes, index) => {
-    //         const { path, component: Component } = routes;
-    //         return (
-    //           <Route
-    //             key={index}
-    //             path={path}
-    //             element={
-    //               <Suspense fallback={<Loader />}>
-    //                 <Component />
-    //               </Suspense>
-    //             }
-    //           />
-    //         );
-    //       })}
-    //     </Route>
-    //   </Routes>
-    // </>
-

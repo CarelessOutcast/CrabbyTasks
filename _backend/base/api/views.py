@@ -89,12 +89,15 @@ class CreateUserTask(generics.CreateAPIView):
 class UpdateUserTask(generics.RetrieveUpdateAPIView):
     permission_classes=[IsAuthenticated]
     serializer_class = TaskRetrieveSerializer
+
     def get_queryset(self):
         current_user = self.request.user
         return task_model.objects.filter(user_id=current_user)
+
     def get_object(self):
         pk = UUID(self.kwargs.get('pk'))
         return task_model.objects.get(task_id=pk)
+
     def partial_update(self, request, *args, **kwargs):
             instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=True)
@@ -105,9 +108,10 @@ class UpdateUserTask(generics.RetrieveUpdateAPIView):
 # ===================================================
 # DELETE TASK
 # ===================================================
-class DeleteUserTask(generics.DestroyAPIView):
+class DeleteUserTask(generics.RetrieveDestroyAPIView):
     permission_classes=[IsAuthenticated]
     serializer_class = TaskDeleteSerializer
+
     def get_queryset(self):
         current_user = self.request.user
         return task_model.objects.filter(user_id=current_user)
@@ -124,6 +128,7 @@ class RetriveUnknownUserTask(generics.ListCreateAPIView):
     serializer_class = TaskRetrieveSerializer
     filter_backends=[filters.DjangoFilterBackend]
     filterset_class= TaskFilter
+
     def get_queryset(self):
         current_user = self.request.user
         return task_model.objects.filter(user_id=current_user)

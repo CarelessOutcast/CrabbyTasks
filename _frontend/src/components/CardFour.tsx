@@ -1,24 +1,13 @@
-import { useEffect, useState, useContext } from 'react';
-import React, { ComponentType } from 'react';
-import Loader from '../common/Loader';
+import { useEffect } from 'react';
+import useTaskContext from '../hooks/useTaskContext';
 
-import { Task } from '../interfaces/Task';
-import TaskContext from '../context/TaskContext';
-import TaskProvider from '../context/TaskProvider';
+const CardFour = (props) => {
+  const { userTasksStats } = useTaskContext();
 
-const CardFour = () => {
-  const {userTasks, getUserTasks} = useContext(TaskContext);
+  useEffect(()=>{
+    console.log("Card 4 redraw stats", userTasksStats);
+    },[]);
 
-  const itemCounter = (index : String) => {
-    if (userTasks && userTasks.length != 0)
-    {
-      return userTasks.filter((x : Task) => x.status == index).length;
-    }
-    else
-    {
-      return 0;
-    }
-  };
 
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -31,7 +20,7 @@ const CardFour = () => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            {itemCounter("Overdue")}
+            {userTasksStats?.overdue}
           </h4>
           <span className="text-sm font-medium">Overdue Tasks</span>
         </div>

@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react';
 import React, { ComponentType } from 'react';
 import Loader from '../common/Loader';
 
+import dayjs from 'dayjs';
 import { Task } from '../interfaces/Task';
 import TaskContext from '../context/TaskContext';
 import TaskProvider from '../context/TaskProvider';
@@ -42,13 +43,13 @@ const TaskListRows = (props) =>{
     setIsModalVisible(true);
     };
     const handleModalClose = () =>{ 
-      console.log("Modal is closing ");
+      // console.log("Modal is closing ");
       setTaskToEdit({});
       setIsModalVisible(false);
       };
 
     useEffect(()=>{
-      console.log("rerender");
+      // console.log("rerender");
       },[userTasks])
 
       {isModalVisible && <TaskModal taskData={taskToEdit} onClose={handleModalClose}/>};
@@ -95,7 +96,7 @@ const TaskListRows = (props) =>{
             <p className="text-sm">{task.description}</p>
           </td>
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-            <p className="text-black dark:text-white">{task.deadline}</p>
+            <p className="text-black dark:text-white">{ dayjs(task.deadline,'YYYY-MM-DDTHH:MM:SSZ').format('ddd MMM DD, YYYY').toString() }</p>
           </td>
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
             <div className="flex items-center space-x-3.5">
