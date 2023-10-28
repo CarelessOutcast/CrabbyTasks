@@ -3,9 +3,11 @@ import { useEffect, useState, useContext } from 'react';
 import React, { ComponentType } from 'react';
 import Loader from '../common/Loader';
 
+import dayjs from 'dayjs';
 import { Task } from '../interfaces/Task';
 import TaskContext from '../context/TaskContext';
 import TaskProvider from '../context/TaskProvider';
+import TaskModal from '../components/TaskModal';
 
 /*
  * Potencially adding a spinner for waiting? 
@@ -24,20 +26,44 @@ const TaskListRowsLoading = <T extends object>(Component: ComponentType<T>) => {
 }
 */
 
-const TaskListRows = () =>{
-  const { userTasks, deleteUserTask } = useContext(TaskContext);
+
+
+const TaskListRows = (props) =>{
+  
+  const { userTasks, deleteUserTask, updateUserTask } = useContext(TaskContext);
+  const [ taskToEdit, setTaskToEdit ] = useState({});
+  const [ isModalVisible, setIsModalVisible ] = useState(false);
+
   const  handleDelete  = (task_id) =>{
-      deleteUserTask(task_id);
-    }
+    deleteUserTask(task_id);
+  };
+
+  const handleEditTask = (taskObj) =>{ 
+    setTaskToEdit(taskObj);
+    setIsModalVisible(true);
+    };
+    const handleModalClose = () =>{ 
+      // console.log("Modal is closing ");
+      setTaskToEdit({});
+      setIsModalVisible(false);
+      };
+
+    useEffect(()=>{
+      // console.log("rerender");
+      },[userTasks])
+
+      {isModalVisible && <TaskModal taskData={taskToEdit} onClose={handleModalClose}/>};
+  
+      
   // If no tasks -> display msg & give ability to Add one
-  if (!userTasks || userTasks.length === 0) { 
+  if (!userTasks || userTasks.length == 0) { 
     return (
       <tr>
         <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
           <h5 className="font-medium text-black dark:text-white">
             No Tasks Set
           </h5>
-          <p className="text-sm">Add one :)</p>
+          <p className="text-sm">Add one!</p>
         </td>
         <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
           <p className="text-black dark:text-white">None</p>
@@ -58,8 +84,10 @@ const TaskListRows = () =>{
   // For every task, create a pretty row
   return (
   <>
-  {userTasks.map((task,index)=>{
+  {userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == props.dateHolder) && (x.status == "ToDo" ||
+   x.status == "In-Progress" || x.status == "Overdue")).map((task,index)=>{
       return (
+        <>
         <tr key={task.task_id}>
           <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
             <h5 className="font-medium text-black dark:text-white">
@@ -68,30 +96,27 @@ const TaskListRows = () =>{
             <p className="text-sm">{task.description}</p>
           </td>
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-            <p className="text-black dark:text-white">{task.deadline}</p>
+            <p className="text-black dark:text-white">{ dayjs(task.deadline,'YYYY-MM-DDTHH:MM:SSZ').format('ddd MMM DD, YYYY').toString() }</p>
           </td>
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
             <div className="flex items-center space-x-3.5">
 
-              <button className="hover:text-primary">
-                <svg width="18px" height="18px" viewBox="0 0 1024 1024" className="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <path d="M779.5 1002.7h-535c-64.3 0-116.5-52.3-116.5-116.5V170.7h768v715.5c0 64.2-52.3 116.5-116.5 116.5zM213.3 256v630.1c0 17.2 14 31.2 31.2 31.2h534.9c17.2 0 31.2-14 31.2-31.2V256H213.3z" fill="#3688FF" /><path d="M917.3 256H106.7C83.1 256 64 236.9 64 213.3s19.1-42.7 42.7-42.7h810.7c23.6 0 42.7 19.1 42.7 42.7S940.9 256 917.3 256zM618.7 128H405.3c-23.6 0-42.7-19.1-42.7-42.7s19.1-42.7 42.7-42.7h213.3c23.6 0 42.7 19.1 42.7 42.7S642.2 128 618.7 128zM405.3 725.3c-23.6 0-42.7-19.1-42.7-42.7v-256c0-23.6 19.1-42.7 42.7-42.7S448 403 448 426.6v256c0 23.6-19.1 42.7-42.7 42.7zM618.7 725.3c-23.6 0-42.7-19.1-42.7-42.7v-256c0-23.6 19.1-42.7 42.7-42.7s42.7 19.1 42.7 42.7v256c-0.1 23.6-19.2 42.7-42.7 42.7z" fill="#5F6379" /></svg>
-              </button>
-
-              <button className="hover:text-primary" name="task_id" onClick={()=>handleDelete(task.task_id)}>
+            <button className="hover:text-primary" name="task_id" onClick={()=>{handleEditTask(task)}}>
                 <svg width="18px" height="18px" viewBox="0 0 1024 1024" className="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <path d="M823.3 938.8H229.4c-71.6 0-129.8-58.2-129.8-129.8V215.1c0-71.6 58.2-129.8 129.8-129.8h297c23.6 0 42.7 19.1 42.7 42.7s-19.1 42.7-42.7 42.7h-297c-24.5 0-44.4 19.9-44.4 44.4V809c0 24.5 19.9 44.4 44.4 44.4h593.9c24.5 0 44.4-19.9 44.4-44.4V512c0-23.6 19.1-42.7 42.7-42.7s42.7 19.1 42.7 42.7v297c0 71.6-58.2 129.8-129.8 129.8z" fill="#3688FF" /><path d="M483 756.5c-1.8 0-3.5-0.1-5.3-0.3l-134.5-16.8c-19.4-2.4-34.6-17.7-37-37l-16.8-134.5c-1.6-13.1 2.9-26.2 12.2-35.5l374.6-374.6c51.1-51.1 134.2-51.1 185.3 0l26.3 26.3c24.8 24.7 38.4 57.6 38.4 92.7 0 35-13.6 67.9-38.4 92.7L513.2 744c-8.1 8.1-19 12.5-30.2 12.5z m-96.3-97.7l80.8 10.1 359.8-359.8c8.6-8.6 13.4-20.1 13.4-32.3 0-12.2-4.8-23.7-13.4-32.3L801 218.2c-17.9-17.8-46.8-17.8-64.6 0L376.6 578l10.1 80.8z" fill="#5F6379" /></svg>
               </button>
 
-              <button className="hover:text-primary">
-                <svg className="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" >
-                  <path d="M16.8754 11.6719C16.5379 11.6719 16.2285 11.9531 16.2285 12.3187V14.8219C16.2285 15.075 16.0316 15.2719 15.7785 15.2719H2.22227C1.96914 15.2719 1.77227 15.075 1.77227 14.8219V12.3187C1.77227 11.9812 1.49102 11.6719 1.12539 11.6719C0.759766 11.6719 0.478516 11.9531 0.478516 12.3187V14.8219C0.478516 15.7781 1.23789 16.5375 2.19414 16.5375H15.7785C16.7348 16.5375 17.4941 15.7781 17.4941 14.8219V12.3187C17.5223 11.9531 17.2129 11.6719 16.8754 11.6719Z" fill="" />
-                  <path d="M8.55074 12.3469C8.66324 12.4594 8.83199 12.5156 9.00074 12.5156C9.16949 12.5156 9.31012 12.4594 9.45074 12.3469L13.4726 8.43752C13.7257 8.1844 13.7257 7.79065 13.5007 7.53752C13.2476 7.2844 12.8539 7.2844 12.6007 7.5094L9.64762 10.4063V2.1094C9.64762 1.7719 9.36637 1.46252 9.00074 1.46252C8.66324 1.46252 8.35387 1.74377 8.35387 2.1094V10.4063L5.40074 7.53752C5.14762 7.2844 4.75387 7.31252 4.50074 7.53752C4.24762 7.79065 4.27574 8.1844 4.50074 8.43752L8.55074 12.3469Z" fill="" />
-                </svg>
+              <button className="hover:text-primary" name="task_id" onClick={()=>{handleDelete(task.task_id)}}>
+                <svg width="18px" height="18px" viewBox="0 0 1024 1024" className="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path d="M779.5 1002.7h-535c-64.3 0-116.5-52.3-116.5-116.5V170.7h768v715.5c0 64.2-52.3 116.5-116.5 116.5zM213.3 256v630.1c0 17.2 14 31.2 31.2 31.2h534.9c17.2 0 31.2-14 31.2-31.2V256H213.3z" fill="#3688FF" /><path d="M917.3 256H106.7C83.1 256 64 236.9 64 213.3s19.1-42.7 42.7-42.7h810.7c23.6 0 42.7 19.1 42.7 42.7S940.9 256 917.3 256zM618.7 128H405.3c-23.6 0-42.7-19.1-42.7-42.7s19.1-42.7 42.7-42.7h213.3c23.6 0 42.7 19.1 42.7 42.7S642.2 128 618.7 128zM405.3 725.3c-23.6 0-42.7-19.1-42.7-42.7v-256c0-23.6 19.1-42.7 42.7-42.7S448 403 448 426.6v256c0 23.6-19.1 42.7-42.7 42.7zM618.7 725.3c-23.6 0-42.7-19.1-42.7-42.7v-256c0-23.6 19.1-42.7 42.7-42.7s42.7 19.1 42.7 42.7v256c-0.1 23.6-19.2 42.7-42.7 42.7z" fill="#5F6379" /></svg>
               </button>
+
+              
             </div>
           </td>
         </tr>
+        {isModalVisible && <TaskModal taskData={taskToEdit} onClose={handleModalClose}/>}
+      </>
     );
     })
   } 
@@ -99,13 +124,13 @@ const TaskListRows = () =>{
   };
 
 
-const TaskList = (props: { setTaskView: (isActive: boolean) => void}) => {
-  const {setTaskView} = props
+const TaskList = (props) => {
+  //const {setTaskView} = props.setTaskView;
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="fixed inset-0 transition-opacity">
-            <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={() => setTaskView(false)}></div>
+            <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={() => props.setTaskView(false)}></div>
           </div>
           <span className="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
           <div
@@ -131,7 +156,7 @@ const TaskList = (props: { setTaskView: (isActive: boolean) => void}) => {
                       </tr>
                     </thead>
                     <tbody>
-                      <TaskListRows/>
+                      <TaskListRows dateHolder={props.holdDate}/>
                   </tbody>
                 </table>
               </div>

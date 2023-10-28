@@ -44,6 +44,8 @@ const TaskModal = ( props ) =>{
     onClose();
   };
 
+
+
   return (
     <>
     <div className="fixed inset-0 bg-black opacity-40"></div>
@@ -113,7 +115,7 @@ const TaskModal = ( props ) =>{
                   </g> 
                 </svg> 
                 </span>
-                <select  value={formData.priority} id="priority" name="priority" onChange={handleInputChange} className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"> 
+                <select id="priority" name="priority" onChange={handleInputChange} className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-12 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input" defaultValue={formData.priority}> 
                   <option value="5"> Highest</option> 
                   <option value="4">High</option> 
                   <option value="3">Medium</option> 
@@ -162,7 +164,7 @@ const TaskModal = ( props ) =>{
                   Deadline
                 </label>
                 <div className="relative">
-                  <input value={formData.deadline} onChange={handleInputChange} id="deadline" name="deadline" type="date" className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" />
+                  <input onChange={handleInputChange} id="deadline" name="deadline" type="date" className="custom-input-date custom-input-date-1 w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary" value={formData.deadline.toString().substring(0,10)}/>
                 </div>
               </div>
               <label className="mb-3 block text-black dark:text-white"> 

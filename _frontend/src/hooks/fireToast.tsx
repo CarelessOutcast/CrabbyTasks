@@ -65,46 +65,48 @@ const createToast=(title: string, msg: string, type: number)=>{toast.custom((t) 
 //     dataJSON=data;
 //   })
 const fireToast = () => {
-const alertSettings=localStorage.getItem("alertSettings");
-if (alertSettings){
-  for (const alertSetting of JSON.parse(alertSettings)) {
-    console.log(alertSetting);
+  const alertSettings=localStorage.getItem("alertSettings");
+  if (alertSettings){
+    for (const alertSetting of JSON.parse(alertSettings)) {
+      console.log(alertSetting);
 
-    const value=isNaN(parseFloat(alertSetting.value))?alertSetting.value:parseFloat(alertSetting.value);
-    const para=alertSetting.criterion<2?"delta_"+alertSetting.para:alertSetting.para;
-    if (alertSetting.id=="ALL"){
-      Object.keys(dataJSON).map((id:string)=>
-      {
-        const condition=alertSetting.criterion=='0'?value<=-1*dataJSON[id][para]:
-        alertSetting.criterion=='1'||alertSetting.criterion=='3'?value>=dataJSON[id][para]:
-        alertSetting.criterion=='2'?value<=dataJSON[id][para]:
-        value==dataJSON[id][para];
-        const realValue=alertSetting.criterion=='0'?dataJSON[id][para]*-1:dataJSON[id][para];
-        if (condition){
-          const msg=`${alertSetting.para} of ${id} ${alertSetting.criterion==0?"goes down by":alertSetting.criterion==1?"goes up by":alertSetting.criterion==2?"is smaller than":alertSetting.criterion==3?"is greater than":"is equal to"} ${realValue}`;
-          createToast(id,msg,alertSetting.type)
-        }
-    
-
-      }
-
-      );
-    }
-    else{
-      const id=alertSetting.id;
+      const value=isNaN(parseFloat(alertSetting.value))?alertSetting.value:parseFloat(alertSetting.value);
+      const para=alertSetting.criterion<2?"delta_"+alertSetting.para:alertSetting.para;
+      if (alertSetting.id=="ALL"){
+        Object.keys(dataJSON).map((id:string)=>
+        {
+          const condition=alertSetting.criterion=='0'?value<=-1*dataJSON[id][para]:
+          alertSetting.criterion=='1'||alertSetting.criterion=='3'?value>=dataJSON[id][para]:
+          alertSetting.criterion=='2'?value<=dataJSON[id][para]:
+          value==dataJSON[id][para];
+          const realValue=alertSetting.criterion=='0'?dataJSON[id][para]*-1:dataJSON[id][para];
+          if (condition){
+            const msg=`${alertSetting.para} of ${id} ${alertSetting.criterion==0?"goes down by":alertSetting.criterion==1?"goes up by":alertSetting.criterion==2?"is smaller than":alertSetting.criterion==3?"is greater than":"is equal to"} ${realValue}`;
+            createToast(id,msg,alertSetting.type)
+          }
       
-      const condition=alertSetting.criterion=='0'?value>=-1*dataJSON[id][para]:
-        alertSetting.criterion=='1'||alertSetting.criterion=='3'?value>=dataJSON[id][para]:
-        alertSetting.criterion=='2'?value<=dataJSON[id][para]:
-        value==dataJSON[id][para];
-        const realValue=alertSetting.criterion=='0'?dataJSON[id][para]*-1:dataJSON[id][para];
-        
-        if (condition){
-          const msg=`${alertSetting.para} of ${id} ${alertSetting.criterion==0?"goes down by":alertSetting.criterion==1?"goes up by":alertSetting.criterion==2?"is smaller than":alertSetting.criterion==3?"is greater than":"is equal to"} ${realValue}`;
-          createToast(id,msg,alertSetting.type)
+
         }
+
+        );
       }
-  };
+      else{
+        const id=alertSetting.id;
+        
+        const condition =
+          alertSetting.criterion=='0' ?  value >= -1 * dataJSON[id][para]:
+          alertSetting.criterion=='1' || 
+          alertSetting.criterion=='3' ?  value >= dataJSON[id][para]:
+          alertSetting.criterion=='2' ?  value <= dataJSON[id][para]: value==dataJSON[id][para];
+
+          const realValue=alertSetting.criterion=='0'?dataJSON[id][para]*-1:dataJSON[id][para];
+          
+          if (condition){
+            const msg=`${alertSetting.para} of ${id} ${alertSetting.criterion==0?"goes down by":alertSetting.criterion==1?"goes up by":alertSetting.criterion==2?"is smaller than":alertSetting.criterion==3?"is greater than":"is equal to"} ${realValue}`;
+            createToast(id,msg,alertSetting.type)
+          }
+        }
+    };
   }
 }
 

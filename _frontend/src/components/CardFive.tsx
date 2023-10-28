@@ -6,7 +6,7 @@ const CardFive = (props) => {
   const { userTasksStats } = useTaskContext();
 
   useEffect(()=>{
-    // console.log("Card 5 redraw");
+    console.log("Card 5 Redraw Stats ",userTasksStats);
     },[]);
 
   return (
@@ -22,7 +22,7 @@ const CardFive = (props) => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            {userTasksStats.current.inProgress}
+              {userTasksStats?.inProgress}
           </h4>
           <span className="text-sm font-medium">Tasks In-Progress</span>
         </div>
