@@ -3,6 +3,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import TaskList from '../components/TaskList';
 import TaskChart from '../components/TaskChart';
 import useAxios from '../hooks/useAxios';
+import dayjs from 'dayjs';
 
 // Common Interface imports
 import { Task } from '../interfaces/Task';
@@ -16,6 +17,7 @@ import TaskProvider from '../context/TaskProvider';
 const TaskManager = () => {
   const [calendarView, setCalendarView] = useState("Month"); //Default calendar view is monthly
   const [taskView, setTaskView] = useState(false); //Default is that task menu is not open
+  const [passDate, setDatePass] = useState("00"); //Default is that task menu is not open
   const [canCheckDates, setDateBool] = useState(false);
 
   const handleCalendarChange = (view: SetStateAction<string>) => {
@@ -23,6 +25,7 @@ const TaskManager = () => {
   }
 
   const openTasks = (date: string) => {
+    setDatePass(date);
     setTaskView(true);
     setDateBool(true);
   }
@@ -32,12 +35,20 @@ const TaskManager = () => {
   const handleDateCheck = (dateDay : String) => {
     if (canCheckDates == true && userTasks.length != 0)
     {
-      
-      return userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && x.status == "ToDo").length;
+      const holdCount = userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && (x.status == "ToDo" ||
+      x.status == "In-Progress" || x.status == "Overdue")).length
+      if (holdCount == 0)
+      {
+        return "";
+      }
+      else
+      {
+        return holdCount;
+      }
     }
     else
     {
-      return 0;
+      return "";
     }
   };
 
@@ -83,7 +94,7 @@ const TaskManager = () => {
               {/* <!-- Line 1 --> */}
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("01")}>
                     <div>
                       1
                     </div>    
@@ -96,7 +107,7 @@ const TaskManager = () => {
                   
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("02")}>
                   <div>
                       2
                     </div>    
@@ -107,7 +118,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("03")}>
                   <div>
                       3
                     </div>    
@@ -118,7 +129,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("04")}>
                   <div>
                       4
                     </div>    
@@ -129,7 +140,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("05")}>
                   <div>
                       5
                     </div>    
@@ -140,7 +151,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("06")}>
                   <div>
                       6
                     </div>    
@@ -151,7 +162,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("07")}>
                   <div>
                       7
                     </div>    
@@ -166,7 +177,7 @@ const TaskManager = () => {
               {/* <!-- Line 2 --> */}
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("08")}>
                   <div>
                       8
                     </div>    
@@ -177,7 +188,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("09")}>
                   <div>
                       9
                     </div>    
@@ -188,7 +199,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("10")}>
                   <div>
                       10
                     </div>    
@@ -199,7 +210,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("11")}>
                   <div>
                       11
                     </div>    
@@ -210,7 +221,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("12")}>
                   <div>
                       12
                     </div>    
@@ -221,7 +232,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("13")}>
                   <div>
                       13
                     </div>    
@@ -232,7 +243,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("14")}>
                   <div>
                       14
                     </div>    
@@ -247,7 +258,7 @@ const TaskManager = () => {
               {/* <!-- Line 3 --> */}
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("15")}>
                   <div>
                       15
                     </div>    
@@ -258,7 +269,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("16")}>
                   <div>
                       16
                     </div>    
@@ -269,7 +280,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("17")}>
                   <div>
                       17
                     </div>    
@@ -280,7 +291,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white"onClick={() => openTasks("18")}>
                   <div>
                       18
                     </div>    
@@ -291,7 +302,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("19")}>
                   <div>
                       19
                     </div>    
@@ -302,7 +313,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("20")}>
                   <div>
                       20
                     </div>    
@@ -313,7 +324,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("21")}>
                   <div>
                       21
                     </div>    
@@ -328,7 +339,7 @@ const TaskManager = () => {
               {/* <!-- Line 4 --> */}
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("22")}>
                   <div>
                       22
                     </div>    
@@ -339,7 +350,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("23")}>
                   <div>
                       23
                     </div>    
@@ -350,7 +361,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("24")}>
                   <div>
                       24
                     </div>    
@@ -361,7 +372,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("25")}>
                   <div>
                       25
                     </div>    
@@ -372,7 +383,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("26")}>
                   <div>
                       26
                     </div>    
@@ -383,7 +394,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("27")}>
                   <div>
                       27
                     </div>    
@@ -394,7 +405,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("28")}>
                   <div>
                       28
                     </div>    
@@ -409,7 +420,7 @@ const TaskManager = () => {
               {/* <!-- Line 5 --> */}
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("29")}>
                   <div>
                       29
                     </div>    
@@ -420,7 +431,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("30")}>
                   <div>
                       30
                     </div>    
@@ -431,7 +442,7 @@ const TaskManager = () => {
                   </span>
                 </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white">
+                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("31") }>
                   <div>
                       31
                     </div>    
@@ -441,22 +452,22 @@ const TaskManager = () => {
                     </div>
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:bg-strokedark dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     1
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:bg-strokedark dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     2
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:bg-strokedark dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     3
                   </span>
                 </td>
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 bg-gray dark:bg-strokedark dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white">
                     4
                   </span>
@@ -506,7 +517,7 @@ const TaskManager = () => {
               <tr className="grid grid-cols-7">
                 {/* Sunday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                  onClick={() => openTasks("1/1") }>
+                  onClick={() => openTasks("22") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
                       22
@@ -519,7 +530,8 @@ const TaskManager = () => {
                   </span>
                 </td>
                 {/* Monday */}
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
+                  onClick={() => openTasks("23") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
                       23
@@ -533,7 +545,8 @@ const TaskManager = () => {
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Tuesday */}
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
+                onClick={() => openTasks("24") }>
                   <span className="font-medium text-black dark:text-white">
                     
                   <div>
@@ -548,7 +561,8 @@ const TaskManager = () => {
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Wednesday */}
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
+                onClick={() => openTasks("25") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
                       25
@@ -562,7 +576,8 @@ const TaskManager = () => {
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Thursday */}
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
+                onClick={() => openTasks("26") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
                       26
@@ -575,7 +590,8 @@ const TaskManager = () => {
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Friday */}
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
+                onClick={() => openTasks("27") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
                       27
@@ -588,7 +604,8 @@ const TaskManager = () => {
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Saturday */}
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
+                onClick={() => openTasks("28") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
                       28
@@ -612,7 +629,7 @@ const TaskManager = () => {
     return (
       <>
         <div className="w-full max-w-full rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <TaskChart/>
+          <TaskChart date={dayjs().date().toString()}/>
         </div>
       </>
     );
@@ -647,7 +664,7 @@ const TaskManager = () => {
       {calendarView === "Day" && (<DayCalendar />)}
       {/* {taskView && ( openTaskList())} */}
 
-      {taskView && (<TaskList setTaskView={setTaskView}/>)}
+      {taskView && (<TaskList setTaskView={setTaskView} holdDate = {passDate}/>)}
       {/* <!-- ====== Calendar Section End ====== --> */}
     </>
   );

@@ -9,11 +9,13 @@ import TaskModal from '../components/TaskModal';
 
 
 
-const TaskChart = () => {
+const TaskChart = (props) => {
     const { userTasks, deleteUserTask, updateUserTask } = useContext(TaskContext);
     const [ taskData, useTaskData ] = useState({});
     const [ isModalVisible, setIsModalVisible ] = useState(false);
     const [ taskToEdit, setTaskToEdit ] = useState({});
+
+    const holdDate = props.date;
 
     const  handleDelete  = (task_id) =>{
         deleteUserTask(task_id);
@@ -53,8 +55,10 @@ const TaskChart = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  { userTasks && userTasks.length > 0 ? (
-                    userTasks.map((task,index)=>(
+                  { userTasks && userTasks.length > 0 
+                    ? (
+                      userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == holdDate) && (x.status == "ToDo" ||
+                        x.status == "In-Progress" || x.status == "Overdue")).map((task,index)=>(
                       <tr key={task.task_id}>
                         <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                           <h5 className="font-medium text-black dark:text-white"> {task.task} </h5>
@@ -86,7 +90,7 @@ const TaskChart = () => {
                     <tr>
                       <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
                         <h5 className="font-medium text-black dark:text-white"> No Tasks Set </h5>
-                        <p className="text-sm"> Add one  </p>
+                        <p className="text-sm"> Add one! </p>
                       </td>
                       <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                         <p className="text-black dark:text-white"> None </p>
