@@ -8,6 +8,7 @@ import { Task } from '../interfaces/Task';
 import TaskContext from '../context/TaskContext';
 import TaskProvider from '../context/TaskProvider';
 import TaskModal from '../components/TaskModal';
+import useTaskContext from '../hooks/useTaskContext';
 
 /*
  * Potencially adding a spinner for waiting? 

@@ -30,9 +30,10 @@ const TaskManager = () => {
   }
 
   const {userTasks} = useTaskContext();
+  const {userTasksStats} = useTaskContext();
 
-  const handleDateCheck = (dateDay : String) => {
-    if (canCheckDates == true && userTasks.length != 0)
+  const handleDateCheckHelper = (dateDay : String) => {
+    if (userTasks.length != 0)
     {
       const holdCount = userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && (x.status == "ToDo" ||
       x.status == "In-Progress" || x.status == "Overdue")).length
@@ -47,6 +48,17 @@ const TaskManager = () => {
     {
       return "";
     }
+  };
+
+  const handleDateCheck = (dateDay : String) => {
+    console.log("Card Two Redraw Stats",userTasksStats.todo);
+    var holdCount = userTasksStats?.inProgress + userTasksStats?.overdue + userTasksStats?.todo;
+      if (holdCount == 0) {
+        return "";
+      }
+      else {
+        return handleDateCheckHelper(dateDay);
+      }
   };
 
   useEffect(()=>{

@@ -47,7 +47,7 @@ function App() {
         <Route element={<DefaultLayout />}>
           <Route index element={
             <TaskProvider>
-              <TaskManager />
+              <Home />
             </TaskProvider>
             } />
           {routes.map((routes, index) => {
