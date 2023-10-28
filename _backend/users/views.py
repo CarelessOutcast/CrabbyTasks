@@ -1,10 +1,12 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from . serializers import CustomUserSerializer
+from rest_framework.views import APIView 
+from rest_framework import generics
+from . serializers import CustomUserSerializer, UserProfileSerializer
+from . models import new_user_model
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 
@@ -33,6 +35,15 @@ class BlacklistTokenUpdateView(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class RetriveUserTask(generics.RetrieveAPIView):
+    permission_classes=[IsAuthenticated]
+    serializer_class = UserProfileSerializer
+    def get_queryset(self):
+        current_user = self.request.user
+        return new_user_model.objects.filter(user_id=current_user)
+
 
 # class LarryLevel(APIView):
 #     # permission_classes = [AllowAny]

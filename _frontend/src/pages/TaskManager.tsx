@@ -11,8 +11,7 @@ import { Task } from '../interfaces/Task';
 import { useContext } from 'react';
 import React, { ComponentType } from 'react';
 import Loader from '../common/Loader';
-import TaskContext from '../context/TaskContext';
-import TaskProvider from '../context/TaskProvider';
+import useTaskContext from '../hooks/useTaskContext';
 
 const TaskManager = () => {
   const [calendarView, setCalendarView] = useState("Month"); //Default calendar view is monthly
@@ -30,19 +29,18 @@ const TaskManager = () => {
     setDateBool(true);
   }
 
-  const {userTasks, getUserTasks} = useContext(TaskContext);
+  const {userTasks} = useTaskContext();
+  const {userTasksStats} = useTaskContext();
 
-  const handleDateCheck = (dateDay : String) => {
-    if (canCheckDates == true && userTasks.length != 0)
+  const handleDateCheckHelper = (dateDay : String) => {
+    if (userTasks.length != 0)
     {
       const holdCount = userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && (x.status == "ToDo" ||
       x.status == "In-Progress" || x.status == "Overdue")).length
-      if (holdCount == 0)
-      {
+      if (holdCount == 0) {
         return "";
       }
-      else
-      {
+      else {
         return holdCount;
       }
     }
@@ -51,6 +49,36 @@ const TaskManager = () => {
       return "";
     }
   };
+
+  const handleDateCheck = (dateDay : String) => {
+    console.log("Card Two Redraw Stats",userTasksStats.todo);
+    var holdCount = userTasksStats?.inProgress + userTasksStats?.overdue + userTasksStats?.todo;
+      if (holdCount == 0) {
+        return "";
+      }
+      else {
+        return handleDateCheckHelper(dateDay);
+      }
+  };
+
+  useEffect(()=>{
+    });
+  
+  const CalendarCell = (props) => {
+    const {dateTimeValue, onClickHandler} = props;
+    return (
+        <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
+          <span className="font-medium text-black dark:text-white" onClick={() => onClickHandler(dateTimeValue)}>
+            <div>
+              {Number(dateTimeValue)}
+            </div>    
+            <div className="ml-40 mt-8 text-danger">
+              {handleDateCheck(dateTimeValue)}    
+            </div>
+          </span>
+        </td>
+      )
+    }
 
 
   const MonthCalendar = () => {
@@ -93,19 +121,8 @@ const TaskManager = () => {
             <tbody>
               {/* <!-- Line 1 --> */}
               <tr className="grid grid-cols-7">
-                <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
-                  <span className="font-medium text-black dark:text-white" onClick={() => openTasks("01")}>
-                    <div>
-                      1
-                    </div>    
-                    <div className="ml-40 mt-8 text-danger">
+              <CalendarCell dateTimeValue={"01"} onClickHandler={openTasks}/>
 
-                      {handleDateCheck("01")}    
-                    </div>
-                  </span>
-
-                  
-                </td>
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">
                   <span className="font-medium text-black dark:text-white" onClick={() => openTasks("02")}>
                   <div>
@@ -174,6 +191,7 @@ const TaskManager = () => {
                 </td>
               </tr>
               {/* <!-- Line 1 --> */}
+
               {/* <!-- Line 2 --> */}
               <tr className="grid grid-cols-7">
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31">

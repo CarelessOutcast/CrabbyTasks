@@ -1,26 +1,12 @@
-import { useEffect, useState, useContext } from 'react';
-import React, { ComponentType } from 'react';
-import Loader from '../common/Loader';
+import { useEffect } from 'react';
+import useTaskContext from '../hooks/useTaskContext';
 
-import { Task } from '../interfaces/Task';
-import TaskContext from '../context/TaskContext';
-import TaskProvider from '../context/TaskProvider';
+const CardOne = (props) => {
+  const { userTasksStats } = useTaskContext();
 
-const CardOne = () => {
-  const {userTasks, getUserTasks} = useContext(TaskContext);
-
-  const itemCounter = (index : String, index2 : String) => {
-    if (userTasks && userTasks.length != 0)
-    {
-      const count1 = userTasks.filter((x : Task) => x.status == index).length * 2;
-      const count2 = userTasks.filter((x : Task) => x.status == index2).length;
-      return count1 - count2;
-    }
-    else
-    {
-      return 0;
-    }
-  };
+  useEffect(()=>{
+    console.log("Card 1 redraw stats", userTasksStats);
+    },[]);
 
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -32,7 +18,7 @@ const CardOne = () => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            {itemCounter("Complete", "Overdue")}
+           {userTasksStats?.level + (userTasksStats?.completed * 2)}
           </h4>
           <span className="text-sm font-medium">Task Completion Score</span>
         </div>
