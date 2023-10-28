@@ -10,5 +10,5 @@ export interface Task {
   created_at: Any; // Datetime type??
   priority: string;
   notifications: string;
-  deadline:  Any; // Datetime type??
+  deadline:  Date; // Datetime type??
 }

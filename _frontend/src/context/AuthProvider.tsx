@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import useAxios from "../hooks/useAxios";
 import axiosInstance from "../axios";
-import Loader from "../common/Loader/index";
 
+import Loader from "../common/Loader/index";
 import AuthContext from './AuthContext';
 
 const AuthProvider = ({ children }) => {
@@ -39,22 +39,19 @@ const AuthProvider = ({ children }) => {
       }
     };
 
-    const signupUser = async (e) => {
+    const signupUser = async (formData) => {
       try{
-        e.preventDefault();
-        const res = await axiosInstance.post(`token/`,
-        {
-          email:e.target.email.value,
-          password:e.target.password.value
+        const res = await axiosInstance.post(`user/create/`, {
+          email:formData.email,
+          user_name:formData.username,
+          password:formData.password
           }
         );
         if (res.status === 200){
-          let data = await res.data;
-          setAuthTokens(()=>data);
-          // const decoded = jwt_decode(data.access).username;
-          // setUsername(()=>decoded);
-          localStorage.setItem('authTokens', JSON.stringify(data));
-          navigate('/');
+          // let data = await res.data;
+          // setAuthTokens(()=>data);
+          // localStorage.setItem('authTokens', JSON.stringify(data));
+          navigate('/auth/signin/');
         } else {
           console.error("It shouldn't get here");
         }
@@ -67,16 +64,17 @@ const AuthProvider = ({ children }) => {
         setAuthTokens(null);
         // setUsername(null);
         localStorage.removeItem('authTokens');
-        navigate('/auth/signin');
+        navigate('/pages/landingpage');
     }
+
     let contextData = {
-        // username:username,
         authTokens:authTokens,
         setAuthTokens:setAuthTokens,
-        // setUsername:setUsername,
         loginUser:loginUser,
         logoutUser:logoutUser,
+        signupUser:signupUser,
     }
+
     useEffect(() => {
         if(authTokens){
             //console.log("Auth tokens: ", authTokens);

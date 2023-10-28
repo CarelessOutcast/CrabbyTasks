@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import TaskProvider from './context/TaskProvider';
 import AuthContext from './context/AuthContext';
 import Home from './pages/Dashboard/Home';
+import TaskManager from './pages/TaskManager';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import LandingPage from './pages/LandingPage'
@@ -20,7 +21,7 @@ const PrivateRoute = ({children, ...rest}) => {
   return ( isAuthenticated ? (
     children
   ) : (
-    <Navigate to="/auth/signin" />
+    <Navigate to="/pages/landingpage" />
   ) 
   );
   }
@@ -39,6 +40,7 @@ function App() {
     <>
       <Toaster position="top-right" reverseOrder={false} containerClassName="overflow-auto" />
       <Routes>
+        <Route path="/pages/landingpage" element={<LandingPage />} />
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />
         <Route element={<DefaultLayout />}>

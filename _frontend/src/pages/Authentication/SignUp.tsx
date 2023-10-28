@@ -1,11 +1,11 @@
-import {useState} from 'react'; 
+import {useState, useContext} from 'react'; 
 import  axiosInstance  from '../../axios';
 import AuthContext from '../../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../images/logo/CrabbyTasksLogo.png';
 
 const SignUp = () => {
-  let { loginUser } = useContext(AuthContext);
+  let { signupUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const initialFormData = Object.freeze({ 
     email:'', 
@@ -23,16 +23,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axiosInstance
-    .post(`user/create/`,{
-      email:formData.email,
-      user_name:formData.username,
-      password:formData.password,
-      })
-    .then((res)=>{
-      navigate('/auth/signin/');
-      console.log(res.data);
-      });
+    signupUser(formData);
     }
   return (
     <>
@@ -94,7 +85,7 @@ const SignUp = () => {
                 Sign Up to CrabbyTasks
               </h2>
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Name
@@ -246,7 +237,6 @@ const SignUp = () => {
                     type="submit"
                     value="Create account"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                    onClick={handleSubmit}
                   />
                 </div>
 

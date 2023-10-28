@@ -24,12 +24,6 @@ const CardFour = (props) => {
           </h4>
           <span className="text-sm font-medium">Overdue Tasks</span>
         </div>
-
-        <span className="flex items-center gap-1 text-sm font-medium text-meta-5">
-          Boo!
-          <svg className="fill-meta-5" width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg" >
-          </svg>
-        </span>
       </div>
     </div>
   );

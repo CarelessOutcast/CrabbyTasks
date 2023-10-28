@@ -37,10 +37,10 @@ const LandingPage = () => {
                     <div className= "mb-16">
                     <div className='flex justify-center'>
                         <Link
-                        to="/taskmanager"
+                        to="/auth/signin"
                         className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-primary to-secondary py-4 px-10 text-center font-bold text-white hover:bg-opacity-500 lg:px-8 xl:px-10"
                         >
-                            Task Manager
+                            Sign In Now
                         </Link>
                     </div>
                     </div>
