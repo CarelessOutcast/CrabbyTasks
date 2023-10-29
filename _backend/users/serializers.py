@@ -24,6 +24,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model: new_user_model
+        fields = ('email', 'user_name', 'first_name')
+    
+
+
 # class UserLarryLevelSerializer(serializers.ModelSerializer):
 #     """
 #     Currently unused in preference of the below.

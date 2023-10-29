@@ -1,24 +1,12 @@
-import { useEffect, useState, useContext } from 'react';
-import React, { ComponentType } from 'react';
-import Loader from '../common/Loader';
+import { useEffect } from 'react';
+import useTaskContext from '../hooks/useTaskContext';
 
-import { Task } from '../interfaces/Task';
-import TaskContext from '../context/TaskContext';
-import TaskProvider from '../context/TaskProvider';
+const CardTwo = (props) => {
+  const {userTasksStats} = useTaskContext();
 
-const CardTwo = () => {
-  const {userTasks, getUserTasks} = useContext(TaskContext);
-
-  const itemCounter = (index : String) => {
-    if (userTasks && userTasks.length != 0)
-    {
-      return userTasks.filter((x : Task) => x.status == index).length;
-    }
-    else
-    {
-      return 0;
-    }
-  };
+  useEffect(()=>{
+    console.log("Card Two Redraw Stats",userTasksStats.todo);
+    },[])
 
   return (
     <div className="rounded-sm border border-stroke bg-white py-6 px-7.5 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -30,7 +18,7 @@ const CardTwo = () => {
       <div className="mt-4 flex items-end justify-between">
         <div>
           <h4 className="text-title-md font-bold text-black dark:text-white">
-            {itemCounter("ToDo")}
+            {userTasksStats?.todo}
           </h4>
           <span className="text-sm font-medium">Tasks To-Do</span>
         </div>
