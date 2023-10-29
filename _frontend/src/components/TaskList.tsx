@@ -97,7 +97,7 @@ const TaskListRows = (props) =>{
             <p className="text-sm">{task.description}</p>
           </td>
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-            <p className="text-black dark:text-white">{ dayjs(task.deadline,'YYYY-MM-DDTHH:MM:SSZ').format('ddd MMM DD, YYYY').toString() }</p>
+            <p className="text-black dark:text-white">{ dayjs(task.deadline.toString().substring(0,10)).format('ddd MMM DD, YYYY').toString() }</p>
           </td>
           <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
             <div className="flex items-center space-x-3.5">

@@ -43,7 +43,6 @@ const TaskChart = (props) => {
       }
 
     useEffect(()=>{
-      console.log()
       setLoading(false);
         },[userTasks])
 
@@ -54,6 +53,7 @@ const TaskChart = (props) => {
                 //         x.status == "In-Progress" || 
                 //         x.status == "Overdue")
                 //     )
+                //
     return (
     <>
       <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -80,7 +80,7 @@ const TaskChart = (props) => {
                     <p className="text-sm">{task.description}</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    <p className="text-black dark:text-white">{dayjs(task.deadline,'YYYY-MM-DDTHH:MM:SSZ').format('ddd MMM DD, YYYY').toString()}</p>
+                    <p className="text-black dark:text-white">{dayjs(task.deadline.toString().substring(0,10)).format('ddd MMM DD, YYYY').toString()}</p>
                   </td>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                     <div className="flex items-center space-x-3.5">
