@@ -24,6 +24,7 @@ const TaskLarge = () =>{
       [name]:value,
       });
     };
+
     // Event handler to handle form submission
     // TODO add fire Toaster on Add 
   const handleSubmit = (e) => {
