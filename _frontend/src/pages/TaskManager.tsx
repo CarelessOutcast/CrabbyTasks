@@ -30,10 +30,9 @@ const TaskManager = () => {
   }
 
   const {userTasks} = useTaskContext();
-  const {userTasksStats} = useTaskContext();
 
   const handleDateCheckHelper = (dateDay : String) => {
-    if (userTasks.length != 0)
+    if (canCheckDates && userTasks.length != 0)
     {
       const holdCount = userTasks.filter((x : Task) => (x.deadline.toString().substring(8,10) == dateDay) && (x.status == "ToDo" ||
       x.status == "In-Progress" || x.status == "Overdue")).length
@@ -51,13 +50,12 @@ const TaskManager = () => {
   };
 
   const handleDateCheck = (dateDay : String) => {
-    console.log("Card Two Redraw Stats",userTasksStats.todo);
-    var holdCount = userTasksStats?.inProgress + userTasksStats?.overdue + userTasksStats?.todo;
+    var holdCount = handleDateCheckHelper(dateDay);
       if (holdCount == 0) {
         return "";
       }
       else {
-        return handleDateCheckHelper(dateDay);
+        return holdCount;
       }
   };
 
@@ -538,25 +536,25 @@ const TaskManager = () => {
                   onClick={() => openTasks("22") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
-                      22
+                      29
                     </div>    
                     <div className="ml-40 mt-8 text-danger">
 
-                      {handleDateCheck("22")}    
+                      {handleDateCheck("29")}    
                     </div>
                     
                   </span>
                 </td>
                 {/* Monday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                  onClick={() => openTasks("23") }>
+                  onClick={() => openTasks("30") }>
                   <span className="font-medium text-black dark:text-white">
                   <div>
-                      23
+                      30
                     </div>    
                     <div className="ml-40 mt-8 text-danger">
 
-                      {handleDateCheck("23")}    
+                      {handleDateCheck("30")}    
                     </div>
                     
                     </span>
@@ -564,15 +562,15 @@ const TaskManager = () => {
                 </td>
                 {/* Tuesday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                onClick={() => openTasks("24") }>
+                onClick={() => openTasks("31") }>
                   <span className="font-medium text-black dark:text-white">
                     
                   <div>
-                      24
+                      31
                     </div>    
                     <div className="ml-40 mt-8 text-danger">
 
-                      {handleDateCheck("24")}    
+                      {handleDateCheck("31")}    
                     </div>
                     
                     </span>
@@ -580,14 +578,14 @@ const TaskManager = () => {
                 </td>
                 {/* Wednesday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                onClick={() => openTasks("25") }>
+                >
                   <span className="font-medium text-black dark:text-white">
                   <div>
-                      25
+                      1
                     </div>    
                     <div className="ml-40 mt-8 text-danger">
 
-                      {handleDateCheck("25")}    
+                      
                     </div>
                     
                     </span>
@@ -595,42 +593,41 @@ const TaskManager = () => {
                 </td>
                 {/* Thursday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                onClick={() => openTasks("26") }>
+              >
                   <span className="font-medium text-black dark:text-white">
                   <div>
-                      26
+                      2
                     </div>    
                     <div className="ml-40 mt-8 text-danger">
 
-                      {handleDateCheck("26")}    
+                       
                     </div>
                     </span>
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Friday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                onClick={() => openTasks("27") }>
+                >
                   <span className="font-medium text-black dark:text-white">
                   <div>
-                      27
+                      3
                     </div>    
                     <div className="ml-40 mt-8 text-danger">
 
-                      {handleDateCheck("27")}    
+                    
                     </div>
                   </span>
                   {/* Add your content for each cell here */}
                 </td>
                 {/* Saturday */}
                 <td className="ease relative h-20 cursor-pointer border border-stroke p-2 transition duration-500 hover:bg-gray dark:border-strokedark dark:hover:bg-meta-4 md:h-25 md:p-6 xl:h-31"
-                onClick={() => openTasks("28") }>
+                >
                   <span className="font-medium text-black dark:text-white">
                   <div>
-                      28
+                      4
                     </div>    
                     <div className="ml-40 mt-8 text-danger">
 
-                      {handleDateCheck("28")}    
                     </div>
                     </span>
                   {/* Add your content for each cell here */}
