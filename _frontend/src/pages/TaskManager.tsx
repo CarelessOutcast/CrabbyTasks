@@ -1,3 +1,14 @@
+/*************************************************************************
+ * File: TaskManager.tsx
+ *
+ * Logic: This component displays a task manager page with options to view tasks
+ * in day, week, or month view. It also provides functionality to open and view
+ * tasks for a specific date.
+ *
+ * Type: React Component
+*************************************************************************/
+
+
 import { SetStateAction, useEffect, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 import TaskList from '../components/TaskList';

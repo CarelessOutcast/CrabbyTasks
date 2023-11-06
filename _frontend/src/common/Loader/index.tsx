@@ -1,3 +1,9 @@
+/*************************************************************************
+COMMON COMPONENT: 
+Creates a loading spinner!
+*************************************************************************/
+
+
 const Loader = () => {
   return (
     <div className="flex h-screen items-center justify-center bg-white">

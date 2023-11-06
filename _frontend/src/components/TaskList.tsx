@@ -1,37 +1,29 @@
-//This is the 'TableThree.tsx' component but modified for TaskManager Page menu
-import { useEffect, useState, useContext } from 'react';
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * Component: TaskList
+ *
+ * Logic: This file defines a React component for displaying a list of tasks. It
+ * uses the `useTaskContext` hook to access user tasks and provides options to
+ * delete or edit tasks.
+ *
+ * Used in TaskManager Weekly
+ *
+ * Type: Component
+*************************************************************************/
 import React, { ComponentType } from 'react';
 import Loader from '../common/Loader';
-
-import dayjs from 'dayjs';
 import { Task } from '../interfaces/Task';
-import TaskContext from '../context/TaskContext';
-import TaskProvider from '../context/TaskProvider';
 import TaskModal from '../components/TaskModal';
+import { useEffect, useState, useContext } from 'react';
+import dayjs from 'dayjs';
 import useTaskContext from '../hooks/useTaskContext';
-
-/*
- * Potencially adding a spinner for waiting? 
- * /
-interface LoadingProps {
-  isLoading: boolean;
-}
-const TaskListRowsLoading = <T extends object>(Component: ComponentType<T>) => {
-  return function TaskListRowComponent(props: T & LoadingProps) {
-    const { isLoading, ...rest } = props;
-    if (!isLoading) return <Component {...rest} />;
-    return (
-      <Loader/>
-    );
-  };
-}
-*/
 
 
 
 const TaskListRows = (props) =>{
   
-  const { userTasks, deleteUserTask, updateUserTask } = useContext(TaskContext);
+  const { userTasks, deleteUserTask, updateUserTask } = useTaskContext();
   const [ taskToEdit, setTaskToEdit ] = useState({});
   const [ isModalVisible, setIsModalVisible ] = useState(false);
 
@@ -44,19 +36,16 @@ const TaskListRows = (props) =>{
     setIsModalVisible(true);
     };
     const handleModalClose = () =>{ 
-      // console.log("Modal is closing ");
       setTaskToEdit({});
       setIsModalVisible(false);
       };
 
     useEffect(()=>{
-      // console.log("rerender");
       },[userTasks])
 
       {isModalVisible && <TaskModal taskData={taskToEdit} onClose={handleModalClose}/>};
   
       
-  // If no tasks -> display msg & give ability to Add one
   if (!userTasks || userTasks.length == 0) { 
     return (
       <tr>
@@ -126,7 +115,6 @@ const TaskListRows = (props) =>{
 
 
 const TaskList = (props) => {
-  //const {setTaskView} = props.setTaskView;
     return (
         <div className="fixed z-10 inset-0 overflow-y-auto">
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">

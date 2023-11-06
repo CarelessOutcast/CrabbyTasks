@@ -1,3 +1,16 @@
+
+/*************************************************************************
+ * Component: CheckboxFour
+ *
+ * Logic: This file defines a React component for rendering a pair of checkboxes
+ * with labels. It uses the state to track the checked state of both checkboxes
+ * and toggles them when one is clicked.
+ *
+ * Settings page: Notifications Settings  
+ *
+ * Type: Component
+*************************************************************************/
+
 import { useState } from 'react';
 
 const CheckboxFour = () => {

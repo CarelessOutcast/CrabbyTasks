@@ -1,5 +1,13 @@
+/*************************************************************************
+ * File: axios.ts
+ *
+ * Logic: This file sets up an Axios instance with custom configurations for
+ * making HTTP requests to a specified API URL based on the environment.
+ *
+ * Type: Utility
+*************************************************************************/
+
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import jwt_decode from "jwt-decode";
 
 let baseURL = 'http://localhost:8000/api/'; // Development environment URL
 if (process.env.NODE_ENV === 'prod') {

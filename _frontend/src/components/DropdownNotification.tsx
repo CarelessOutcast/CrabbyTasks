@@ -1,3 +1,17 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS
+ *
+ * Component: DropdownNotification
+ *
+ * Logic: This file defines a React component for rendering a notification
+ * dropdown menu. The dropdown menu can be opened and closed by clicking a link
+ * icon. It also closes when clicking outside of it or pressing the "Esc" key.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 

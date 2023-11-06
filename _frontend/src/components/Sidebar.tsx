@@ -1,3 +1,19 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * Component: Sidebar.tsx
+ *
+ * Logic: This component creates a sidebar for navigation within the
+ * application. It manages the open/close state of the sidebar, responds to user
+ * interactions, and provides links to different sections of the application.
+ * The behavior of the sidebar depends on the user's actions and the state of
+ * the application.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import Logo from "../images/logo/CrabbyTasksLogo.png"

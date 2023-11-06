@@ -1,3 +1,16 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * File: drag.ts
+ *
+ * Logic: Implements basic drag-and-drop functionality for tasks within
+ * swim-lanes or containers.
+ *
+ * Type: JavaScript 
+*************************************************************************/
+
+
 const Drag = (): void => {
   const draggables = document.querySelectorAll<HTMLElement>('.task');
   const droppables = document.querySelectorAll<HTMLElement>('.swim-lane');

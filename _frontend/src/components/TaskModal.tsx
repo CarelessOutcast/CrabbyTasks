@@ -1,3 +1,18 @@
+
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * Component: TaskModal
+ *
+ * Logic: This file defines a React component for displaying a modal dialog for
+ * editing tasks. Users can input task details like task name,
+ * description, status, priority, notifications, deadline, and category.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import useTaskContext from '../hooks/useTaskContext';
 import dayjs from 'dayjs';
 import { useContext, useState, useEffect } from 'react';

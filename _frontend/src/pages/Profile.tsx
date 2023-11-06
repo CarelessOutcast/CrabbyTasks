@@ -1,6 +1,17 @@
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ * File: ContactPage.tsx
+ *
+ * Logic: Renders a profile or contact page for a team or organization. It
+ * displays information about the team's name, description, and social media
+ * links.
+ *
+ * Type: React Component
+*************************************************************************/
+
+
 import Breadcrumb from '../components/Breadcrumb';
 import CoverOne from '../images/cover/contactbg.jpg';
-import userSix from '../images/user/user-06.png';
 import PFP from "../images/cover/contactPFP_cropped.png"
 
 const ContactPage = () => {

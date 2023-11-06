@@ -1,3 +1,16 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * File: fireToast.tsx
+ *
+ * Logic: Defines a hook for creating and displaying toasts (notifications) based on data conditions.
+ *
+ * Type: React Hook
+*************************************************************************/
+
+
+
 import toast from 'react-hot-toast';
 import dataJSON from '../../public/data.json';
 

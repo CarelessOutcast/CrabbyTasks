@@ -1,3 +1,18 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * Component: TaskLarge
+ *
+ * Logic: This file defines a React component for adding new tasks. It provides
+ * input fields for specifying task details such as task name, description,
+ * status, priority, notifications, deadline, and category.
+ * 
+ * Used in Home 
+ *
+ * Type: Component
+*************************************************************************/
+
 import useTaskContext from '../hooks/useTaskContext';
 import dayjs from 'dayjs';
 import { useContext, useState } from 'react';

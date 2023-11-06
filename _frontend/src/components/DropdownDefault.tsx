@@ -1,3 +1,15 @@
+
+/*************************************************************************
+ * Component: DropdownDefault
+ *
+ * Logic: This file defines a React component for rendering a dropdown menu. The
+ * dropdown menu can be opened and closed by clicking a button. It also closes
+ * when clicking outside of it or pressing the "Esc" key.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import { useEffect, useRef, useState } from "react";
 
 const DropdownDefault = () => {

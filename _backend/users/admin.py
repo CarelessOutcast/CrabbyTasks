@@ -1,3 +1,9 @@
+################################################################################
+# This 'admin.py' file configures the Django admin interface for the 'new_user_model'
+# model in the 'users' app. It defines a custom admin configuration class
+# 'user_admin_config_model' that extends 'UserAdmin'. The custom admin class
+# specifies how the user model is displayed and managed in the Django admin panel.
+################################################################################
 
 # Register your models here.
 from django.contrib import admin
@@ -7,7 +13,7 @@ from django.forms import TextInput, Textarea, CharField
 from django import forms
 from django.db import models
 
-
+# Custom admin configuration class for the 'new_user_model'.
 class user_admin_config_model(UserAdmin):
     model = new_user_model
     search_fields = ('email', 'user_name', 'first_name',)
@@ -30,5 +36,5 @@ class user_admin_config_model(UserAdmin):
          ),
     )
 
-
+# Register the 'new_user_model' with the custom admin configuration.
 admin.site.register(new_user_model, user_admin_config_model)

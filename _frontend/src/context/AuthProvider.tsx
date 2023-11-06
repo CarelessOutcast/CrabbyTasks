@@ -1,3 +1,14 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * File: AuthProvider.tsx
+ *
+ * Logic: Provides authentication-related functionality and state to other components.
+ *
+ * Type: React Component
+*************************************************************************/
+
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
@@ -10,9 +21,6 @@ import AuthContext from './AuthContext';
 const AuthProvider = ({ children }) => {
     let [authTokens, setAuthTokens] = useState(()=>localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null);
 
-    // TODO user profile 
-    // let [userProfile, setUserProfile] = useState({});
-
     let [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
@@ -22,10 +30,12 @@ const AuthProvider = ({ children }) => {
       const res = await authenticated_axios.get('user/gather/');
       const userProfileObj = res.data;
       console.log(userProfileObj);
-      // setUserProfile(userProfileObj);
       }
 
 
+/* ***********************************************************
+ *  AUTH A USER 
+ * ***********************************************************/
     const loginUser = async (e) => {
       try{
         e.preventDefault();
@@ -49,6 +59,9 @@ const AuthProvider = ({ children }) => {
       }
     };
 
+/* ***********************************************************
+ *  CREATE A USER 
+ * ***********************************************************/
     const signupUser = async (formData) => {
       try{
         const res = await axiosInstance.post(`user/create/`, {
@@ -66,7 +79,10 @@ const AuthProvider = ({ children }) => {
         console.error("Error with login: ", e)
       }
     };
-    
+
+/* ***********************************************************
+ *  LOGOUT THE USER
+ * ***********************************************************/
     let logoutUser = () => {
         setAuthTokens(null);
         localStorage.removeItem('authTokens');

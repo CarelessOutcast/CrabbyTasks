@@ -1,3 +1,14 @@
+
+/*************************************************************************
+ * File: SignIn.tsx
+ *
+ * Logic: Defines a sign-in page component for the application. It includes a
+ * form for users to enter their email and password to log in.
+ *
+ * Type: React Component
+*************************************************************************/
+
+
 import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext';
 import { Link } from 'react-router-dom';

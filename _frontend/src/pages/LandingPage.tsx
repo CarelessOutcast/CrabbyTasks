@@ -1,3 +1,13 @@
+/*************************************************************************
+ * File: LandingPage.tsx
+ *
+ * Logic: Defines the landing page component for the application. It displays a
+ * welcoming message and encourages users to sign in.
+ *
+ * Type: React Component
+*************************************************************************/
+
+
 import { Link } from 'react-router-dom';
 import background from "../images/landing-bg.jpg";
 

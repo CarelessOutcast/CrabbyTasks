@@ -1,8 +1,18 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS
+ *
+ * Component: TaskHeader
+ *
+ * Logic: This file defines a React component for displaying task-related
+ * headers and actions. It includes options for adding tasks and interacting
+ * with user avatars.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import { useEffect, useRef, useState } from 'react';
-import userSeven from '../images/user/user-07.png';
-import userEight from '../images/user/user-08.png';
-import userNine from '../images/user/user-09.png';
-import userTen from '../images/user/user-10.png';
 
 const TaskHeader = () => {
   const [popupOpen, setPopupOpen] = useState(false);

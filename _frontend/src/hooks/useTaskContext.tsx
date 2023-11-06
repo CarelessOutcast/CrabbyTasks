@@ -1,3 +1,12 @@
+
+/*************************************************************************
+ * File: useTaskContext.tsx
+ *
+ * Logic: Provides access to the TaskContext using useContext.
+ *
+ * Type: Custom React Hook
+*************************************************************************/
+
 import TaskContext from '../context/TaskContext';
 import { useContext } from 'react';
 

@@ -1,3 +1,13 @@
+
+/*************************************************************************
+ * File: useLocalStorage.tsx
+ *
+ * Logic: Manages and persists data in the browser's local storage.
+ *
+ * Type: React Hook
+*************************************************************************/
+
+
 import { useEffect, useState } from 'react';
 
 type SetValue<T> = T | ((val: T) => T);

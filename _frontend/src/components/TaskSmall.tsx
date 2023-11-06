@@ -1,3 +1,17 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * Component: TaskSmall
+ *
+ * Logic: This file defines a React component for displaying a small task or
+ * event item. It appears as a clickable item with optional additional details
+ * that become visible on hover.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import { useEffect, useRef, useState } from 'react';
 
 

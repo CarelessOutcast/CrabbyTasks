@@ -1,9 +1,26 @@
+################################################################################
+# This 'serializers.py' file defines serializer classes using Django Rest
+# Framework for the 'task_model' model in the 'base' app. These serializers
+# handle the conversion of model data to JSON format and vice versa for tasks.
+################################################################################
+
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from ..models import * 
 import uuid
 
+# JWT Authentication
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        # Sending custom info with JWT
+        token['username'] = user.email
+        # ...
 
+        return token
+
+# Serializer for retrieving task details
 class TaskRetrieveSerializer(serializers.ModelSerializer):
     class Meta: 
         model = task_model
@@ -20,6 +37,7 @@ class TaskRetrieveSerializer(serializers.ModelSerializer):
                 'deadline'
                 ]
 
+# Serializer for creating tasks
 class TaskCreateSerializer(serializers.ModelSerializer):
     class Meta: 
         model = task_model
@@ -38,7 +56,7 @@ class TaskCreateSerializer(serializers.ModelSerializer):
         task = task_model.objects.create(user_id=user, **validated_data)
         return task
 
-
+# Serializer for deleting tasks
 class TaskDeleteSerializer(serializers.ModelSerializer):
     class Meta: 
         model = task_model
@@ -47,15 +65,4 @@ class TaskDeleteSerializer(serializers.ModelSerializer):
                 ]
     
 
-
-#JWT Auth
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        # Sending custom info with JWT
-        token['username'] = user.email
-        # ...
-
-        return token
 

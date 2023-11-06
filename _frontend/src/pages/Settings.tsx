@@ -1,18 +1,28 @@
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * File: Settings.tsx
+ *
+ * Logic: This component renders a settings page where users can update their
+ * personal information and notification settings. It includes forms for editing
+ * personal details and checkboxes for notification preferences.
+ *
+ * Type: React Component
+*************************************************************************/
+
+
+
 import Breadcrumb from '../components/Breadcrumb';
-import userThree from '../images/user/user-03.png';
 import fireToast from '../hooks/fireToast';
 import { Table } from "../components/TableSettings";
 import { Modal } from "../components/ModalSettings";
 import { useState,useEffect } from "react";
-import CheckboxFive from '../components/CheckboxFive';
 import CheckboxFour from '../components/CheckboxFour';
-import CheckboxOne from '../components/CheckboxOne';
-import CheckboxThree from '../components/CheckboxThree';
-import CheckboxTwo from '../components/CheckboxTwo';
 
 const Settings = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rows, setRows] = useState(localStorage.getItem("alertSettings")?JSON.parse(localStorage.getItem("alertSettings")):[]);
+
   useEffect(() => {
     // storing input name
     localStorage.setItem("alertSettings", JSON.stringify(rows));
@@ -35,7 +45,6 @@ const Settings = () => {
       : setRows(
           rows.map((currRow, idx) => {
             if (idx !== rowToEdit) return currRow;
-
             return newRow;
           })
         );
