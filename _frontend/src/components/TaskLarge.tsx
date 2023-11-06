@@ -1,7 +1,5 @@
 
 /*************************************************************************
- * WORK-IN-PROGRESS: 
- *
  * Component: TaskLarge
  *
  * Logic: This file defines a React component for adding new tasks. It provides
@@ -30,7 +28,7 @@ const TaskLarge = () =>{
         priority:'5',
         category:'Other',
         notification:'None',
-    });
+    };
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;

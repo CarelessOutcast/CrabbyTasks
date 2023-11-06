@@ -1,6 +1,8 @@
 
 /*************************************************************************
- * WORK-IN-PROGRESS
+ * WORK-IN-PROGRESS:
+ *    Dynamically add the user settings based on AuthContext
+ *
  * Component: DropdownUser
  *
  * Logic: This file defines a React component that represents a user account dropdown menu.

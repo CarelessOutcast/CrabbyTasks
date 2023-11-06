@@ -1,6 +1,7 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Update the user settings through this form (Settings page)
  *
  * Component: ModalSettings
  *

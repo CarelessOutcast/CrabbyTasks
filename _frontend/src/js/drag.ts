@@ -1,6 +1,7 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Make Tasks Draggable throughout application
  *
  * File: drag.ts
  *

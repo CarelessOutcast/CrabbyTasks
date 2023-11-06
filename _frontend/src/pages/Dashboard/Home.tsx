@@ -1,6 +1,7 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Attach the chart logic
  *
  * File: Home.tsx
  *

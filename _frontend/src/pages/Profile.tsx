@@ -1,5 +1,7 @@
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Add social button logic
+ *
  * File: ContactPage.tsx
  *
  * Logic: Renders a profile or contact page for a team or organization. It

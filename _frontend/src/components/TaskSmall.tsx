@@ -1,6 +1,8 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Make the small tasks fill with their designated monthly calendar box
+ *    with their information
  *
  * Component: TaskSmall
  *

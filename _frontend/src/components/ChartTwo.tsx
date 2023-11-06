@@ -1,6 +1,7 @@
 
 /*************************************************************************
- * WORK-IN-PROGRESS
+ * WORK-IN-PROGRESS:
+ *   Attach the task context to update automatically
  *
  * Component: ChartTwo
  *

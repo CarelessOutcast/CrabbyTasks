@@ -1,6 +1,7 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Attach the toast to fire on updated state
  *
  * File: fireToast.tsx
  *
