@@ -1,3 +1,13 @@
+
+/*************************************************************************
+ * File: useColorMode.tsx
+ *
+ * Logic: Manages and applies color themes (light and dark) to the application.
+ *
+ * Type: React Hook
+*************************************************************************/
+
+
 import { useEffect } from 'react';
 import useLocalStorage from './useLocalStorage';
 

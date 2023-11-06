@@ -1,3 +1,15 @@
+
+/*************************************************************************
+ * Component: SidebarLinkGroup
+ *
+ * Logic: This file defines a React component for a collapsible sidebar link
+ * group. The component handles toggling the group's open/closed state when a
+ * user clicks on it.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import { ReactNode, useState } from 'react';
 
 interface SidebarLinkGroupProps {

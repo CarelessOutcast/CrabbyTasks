@@ -1,3 +1,15 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ * File: DefaultLayout.tsx
+ *
+ * Logic: Defines a default layout for the application with a sidebar, header,
+ * and main content area. It uses React Router for routing.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import { useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';

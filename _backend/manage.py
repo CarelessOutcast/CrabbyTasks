@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+
+################################################################################
+# This file, 'manage.py,' is the command-line utility for Django, used for
+# administrative tasks in a Django project.
+#
+# It sets the Django settings module, imports Django's management module, and
+# executes administrative tasks based on command-line arguments.
+################################################################################
+
 """Django's command-line utility for administrative tasks."""
 import os
 import sys

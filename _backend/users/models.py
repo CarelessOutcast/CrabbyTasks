@@ -1,9 +1,17 @@
+################################################################################
+# This 'models.py' file defines Django models for the 'users' app. It includes
+# the 'custom_account_manager_model' class, which manages user creation,
+# particularly the creation of superusers. It also defines the 'new_user_model'
+# class, which represents the user model, including fields like email, username,
+# first name, start date, about, and various permissions and flags.
+################################################################################
+
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
-
+# CustomAccountManagerModel manages user creation, including superusers.
 class custom_account_manager_model(BaseUserManager):
 
     def create_superuser(self, email, user_name, first_name, password, **other_fields):
@@ -31,6 +39,7 @@ class custom_account_manager_model(BaseUserManager):
         return user
 
 #Changed the user_model that was originally in base.api
+# new_user_model represents the user model with various fields and flags.
 class new_user_model(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(_('email address'), unique=True)
@@ -47,7 +56,7 @@ class new_user_model(AbstractBaseUser, PermissionsMixin):
     objects = custom_account_manager_model()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_name']
+    REQUIRED_FIELDS = ['user_name', 'first_name']
 
     # def levelcalculate (self):
     #     if (self.exp_counter >= self.LarryLevel*100):

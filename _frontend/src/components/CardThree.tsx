@@ -1,3 +1,16 @@
+
+/*************************************************************************
+ * Component: CardThree
+ *
+ * Logic: This file defines a React component for displaying task statistics in
+ * a card format. It imports the 'useTaskContext' hook to access user task
+ * statistics and 'useEffect' for handling side effects. Inside the component,
+ * it logs userTasksStats and displays statistics for completed tasks. The card
+ * has a rounded border, background color, and shadow for styling.
+ *
+ * Type: Component
+*************************************************************************/
+
 import { useEffect } from 'react';
 import useTaskContext from '../hooks/useTaskContext';
 
@@ -5,7 +18,6 @@ const CardThree = (props) => {
   const { userTasksStats } = useTaskContext();
 
   useEffect(()=>{
-     console.log("Card 3 Redraw Stats:", userTasksStats);
     },[]);
   
   return ( 

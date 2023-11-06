@@ -1,3 +1,15 @@
+
+/*************************************************************************
+ * Component: DarkModeSwitcher
+ *
+ * Logic: This file defines a React component for rendering a dark mode switcher
+ * toggle. It uses the "useColorMode" hook to toggle between dark and light
+ * modes.
+ *
+ * Type: Component
+*************************************************************************/
+
+
 import useColorMode from '../hooks/useColorMode';
 
 const DarkModeSwitcher = () => {

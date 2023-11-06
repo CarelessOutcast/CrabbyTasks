@@ -1,3 +1,15 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * File: SignUp.tsx
+ *
+ * Logic: Defines a sign-up page component for the application. It includes a
+ * form for users to sign up by providing their name, email, and password.
+ *
+ * Type: React Component
+*************************************************************************/
+
 import {useState, useContext} from 'react'; 
 import  axiosInstance  from '../../axios';
 import AuthContext from '../../context/AuthContext';

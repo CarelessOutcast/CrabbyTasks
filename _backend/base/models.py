@@ -1,10 +1,15 @@
+################################################################################
+# This 'models.py' file defines the data models for the 'base' app of the Django
+# project. It includes a model called 'task_model' that represents tasks with
+# various attributes such as status, description, deadline, priority, and more.
+################################################################################
+
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
 import uuid
 
-#creates table in database for user and their information
-
+# Choices for task status.
 STATUSES = (
     ('ToDo', 'To Do'),
     ('In-Progress', 'In-Progress'),
@@ -12,6 +17,7 @@ STATUSES = (
     ('Overdue', 'Overdue'),
 )
 
+# Choices for task notifications.
 NOTIFICATIONS = (
     ('None', 'None'),
     ('Desktop Only', 'Desktop Only'),
@@ -19,6 +25,7 @@ NOTIFICATIONS = (
     ('Both', 'Both'),
 )
 
+# Choices for task priorities.
 PRIORITIES = (
     ('1', 'Highest'),
     ('2', 'High'),
@@ -26,6 +33,8 @@ PRIORITIES = (
     ('4', 'Low'),
     ('5', 'Lowest'),
 )
+
+# Choices for task categories.
 CATEGORIES = (
     ('Work', 'Work'),
     ('School', 'School'),
@@ -35,15 +44,8 @@ CATEGORIES = (
 )
 
 
-#creates table in database for tasks and their information
+# Model for representing tasks.
 class task_model(models.Model):
-    #Add query model permissions: https://www.django-rest-framework.org/api-guide/permissions/#djangomodelpermissions
-
-    # only status=todo objects are queried
-    class tasks_objects(models.Manager):
-        def for_user(self, user):
-            return super().get_queryset().filter(user_id=user)
-
     user_id         = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) #hidden
     task_id         = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     status          = models.CharField(max_length=11, choices=STATUSES, default='ToDo', editable=True)
@@ -55,12 +57,15 @@ class task_model(models.Model):
     priority        = models.CharField(max_length=7, choices=PRIORITIES, default=2)
     category        = models.CharField(max_length=8, choices=CATEGORIES, default='Other')
     notifications   = models.CharField(max_length=12, choices=NOTIFICATIONS, default='None')
-    # time_remaining  = models.CharField(max_length=25) #would need javascript or something to implement timer properly
-    # This is how we can specifically ask for things on ORM; Implies 
 
+     # Custom manager for querying only 'ToDo' status tasks.
+    class tasks_objects(models.Manager):
+        def for_user(self, user):
+            return super().get_queryset().filter(user_id=user)
+    
     objects = models.Manager() 
     tasks_objects = tasks_objects() 
-    
+
     class Meta:
         ordering = ['-status',]
 

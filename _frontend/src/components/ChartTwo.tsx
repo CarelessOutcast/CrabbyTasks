@@ -1,3 +1,17 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS
+ *
+ * Component: ChartTwo
+ *
+ * Logic: This file defines a React component for displaying a stacked bar chart
+ * representing weekly tasks. It imports dependencies such as 'ApexOptions',
+ * 'React', 'useState', and 'ReactApexChart'. The component fetches data for
+ * 'Completed' and 'Incomplete' tasks and displays them as a stacked bar chart.
+ *
+ * Type: Component
+*************************************************************************/
+
 import { ApexOptions } from 'apexcharts';
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';

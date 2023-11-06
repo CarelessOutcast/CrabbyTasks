@@ -1,3 +1,10 @@
+
+################################################################################
+# This 'urls.py' file defines URL patterns for the API views related to tasks in
+# the 'base' app. It includes endpoints for authentication tokens and CRUD
+# operations on tasks.
+################################################################################
+
 from django.urls import path
 from rest_framework_simplejwt.views import (
         TokenRefreshView

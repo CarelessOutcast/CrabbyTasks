@@ -1,11 +1,21 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS
+ *
+ * Component: Header
+ *
+ * Logic: This file defines a React component for the website's header. It
+ * includes a navigation menu, a dark mode switcher, and user-related dropdowns
+ * for notifications and user account settings. The header is conditionally
+ * displayed based on the current page.
+ *
+ * Type: Component
+*************************************************************************/
+
 import { Link, useLocation } from 'react-router-dom';
-import Logo from '../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
-import DropdownMessage from './DropdownMessage'; //No longer needed due to removal of chat dropdown I think
 import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
-
-
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -59,9 +69,6 @@ const Header = (props: {
           </button>
           {/* <!-- Hamburger Toggle BTN --> */}
 
-          <Link className="block flex-shrink-0 lg:hidden" to="/">
-            <img src={Logo} alt="Logo" />
-          </Link>
         </div>
 
         <div className="hidden sm:block">

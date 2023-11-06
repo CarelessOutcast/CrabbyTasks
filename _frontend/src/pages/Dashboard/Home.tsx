@@ -1,14 +1,23 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ *
+ * File: Home.tsx
+ *
+ * Logic: Defines the home page component for the application. It displays
+ * various cards with user statistics, task charts, and other Task components.
+ *
+ * Type: React Component
+*************************************************************************/
+
+
 import CardFour from '../../components/CardFour.tsx';
 import CardFive from '../../components/CardFive.tsx';
 import CardOne from '../../components/CardOne.tsx';
 import CardThree from '../../components/CardThree.tsx';
 import CardTwo from '../../components/CardTwo.tsx';
-import ChartOne from '../../components/ChartOne.tsx';
 import ChartThree from '../../components/ChartThree.tsx';
 import ChartTwo from '../../components/ChartTwo.tsx';
-import ChatCard from '../../components/ChatCard.tsx';
-import MapOne from '../../components/MapOne.tsx';
-import TableOne from '../../components/TableOne.tsx';
 import TaskLarge from '../../components/TaskLarge.tsx';
 import TaskChart from '../../components/TaskChart.tsx';
 
@@ -16,15 +25,12 @@ import useTaskContext from '../../hooks/useTaskContext';
 import {useEffect} from 'react';
 import dayjs from 'dayjs';
 
-
-
 const Home = () => {
 
   const today = dayjs();
   const {userTasksStats, updatedStats} = useTaskContext();
 
   useEffect(()=>{
-    console.log(userTasksStats.current);
     },[updatedStats]);
   
   return (
@@ -52,8 +58,9 @@ const Home = () => {
           <TaskLarge />
         </div>
         <div className="col-span-4 xl:col-span-8">
-        <ChartThree />
+        <ChartTwo/>
         </div>
+        <ChartThree />
         
       </div>
     </>

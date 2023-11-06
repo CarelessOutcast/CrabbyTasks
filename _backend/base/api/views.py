@@ -1,6 +1,10 @@
+################################################################################
+# This 'views.py' file defines various API views for managing tasks in the 'base'
+# app. It includes views for creating, retrieving, updating, and deleting tasks.
+################################################################################
+
 from ..models import *
 from .serializer import *
-from django.shortcuts import get_object_or_404
 from uuid import UUID
 
 # Django REST API imports 
@@ -11,16 +15,13 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 from .filters import *
 
-# https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/#tutorial-4-authentication-permissions
-from rest_framework.permissions import SAFE_METHODS, BasePermission, AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
-#jwt aut
+# JWT AUTHENTICATION
+from rest_framework.permissions import SAFE_METHODS, BasePermission, AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
-
-import logging
-logger = logging.getLogger(__name__)
 
 # ===================================================
 # TOKEN GENERATE
+# Custom Token Obtain Pair View
 # ===================================================
 class MyTokenObtainPairView(TokenObtainPairView):
     permission_classes=[AllowAny]
@@ -28,6 +29,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 # ===================================================
 # Object level permission!!
+# Custom permission to allow only authors to edit tasks
 # ===================================================
 class TaskUserWritePermission(BasePermission):
     message = "Only author can edit"
@@ -36,25 +38,13 @@ class TaskUserWritePermission(BasePermission):
             return True
         return obj.user_id == request.user
 
-# ===================================================
-# CLASS BASED VIEW 
-# ===================================================
-
-# ===================================================
-# TODO Figure out how to make a more flexible search
-# class SearchUserTasks(generics.ListCreateAPIView):
-#     # permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
-#     serializer_class = TaskRetrieveSerializer
-#     filter_backends=[filters.DjangoFilterBackend]
-#     filterset_class= StatusFilter
-#     def get_queryset(self):
-#         current_user = self.request.user
-#         return task_model.tasks_objects.for_user(current_user)
-# ===================================================
-
+#### ===================================================
+#### CLASS BASED VIEW 
+#### ===================================================
 
 # ===================================================
 # GET ALL USER TASKS
+# Retrieve tasks for the current user
 # ===================================================
 class RetriveUserTasks(generics.ListAPIView):
     permission_classes=[IsAuthenticated]
@@ -65,6 +55,7 @@ class RetriveUserTasks(generics.ListAPIView):
 
 # ===================================================
 # RETRIEVE SINGLE TASK
+# Retrieve a single task for the current user
 # ===================================================
 class RetriveUserTask(generics.RetrieveAPIView):
     permission_classes=[IsAuthenticated]
@@ -75,6 +66,7 @@ class RetriveUserTask(generics.RetrieveAPIView):
 
 # ===================================================
 # CREATE TASK
+# Create a new task for the current user
 # ===================================================
 class CreateUserTask(generics.CreateAPIView):
     permission_classes=[IsAuthenticated]
@@ -85,6 +77,7 @@ class CreateUserTask(generics.CreateAPIView):
 
 # ===================================================
 # UPDATE TASK
+# Update a task for the current user
 # ===================================================
 class UpdateUserTask(generics.RetrieveUpdateAPIView):
     permission_classes=[IsAuthenticated]
@@ -107,6 +100,7 @@ class UpdateUserTask(generics.RetrieveUpdateAPIView):
 
 # ===================================================
 # DELETE TASK
+# Delete a task for the current user
 # ===================================================
 class DeleteUserTask(generics.RetrieveDestroyAPIView):
     permission_classes=[IsAuthenticated]
@@ -121,7 +115,8 @@ class DeleteUserTask(generics.RetrieveDestroyAPIView):
         return task_model.objects.get(task_id=pk)
 
 # ===================================================
-# Search for unknown single ?task=<PartialNameOfTask>
+# SEARCH
+# Retrieve tasks with filtering for the current user
 # ===================================================
 class RetriveUnknownUserTask(generics.ListCreateAPIView):
     permission_classes=[IsAuthenticated]
@@ -135,12 +130,14 @@ class RetriveUnknownUserTask(generics.ListCreateAPIView):
 
 # ===================================================
 # GET ALL DB TASKS
+# Retrieve all tasks (allow any user)
 # ===================================================
 class RetriveAllTasks(generics.ListCreateAPIView):
     permission_classes=[AllowAny]
     queryset = task_model.objects.all()
     serializer_class = TaskRetrieveSerializer
 
+# CRUD DEV TESTS (allow any user)
 class RetriveAllTask(generics.RetrieveUpdateDestroyAPIView):
     permission_classes=[AllowAny]
     serializer_class = TaskRetrieveSerializer
@@ -149,6 +146,16 @@ class RetriveAllTask(generics.RetrieveUpdateDestroyAPIView):
         return task_model.objects.all()
 
 
-
+# ===================================================
+# TODO Figure out how to make a more flexible search
+# class SearchUserTasks(generics.ListCreateAPIView):
+#     # permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
+#     serializer_class = TaskRetrieveSerializer
+#     filter_backends=[filters.DjangoFilterBackend]
+#     filterset_class= StatusFilter
+#     def get_queryset(self):
+#         current_user = self.request.user
+#         return task_model.tasks_objects.for_user(current_user)
+# ===================================================
 
 

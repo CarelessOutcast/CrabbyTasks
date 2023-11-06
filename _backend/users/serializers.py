@@ -1,7 +1,13 @@
+################################################################################
+# This 'serializers.py' file contains Django Rest Framework (DRF) serializers
+# for the 'users' app. It defines two serializers: 'CustomUserSerializer' and
+# 'UserProfileSerializer,' primarily used for user-related data serialization.
+################################################################################
+
 from rest_framework import serializers
 from .models import new_user_model
 
-
+# CustomUserSerializer serializes user registration data.
 class CustomUserSerializer(serializers.ModelSerializer):
     """
     Currently unused in preference of the below.
@@ -24,12 +30,14 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+# UserProfileSerializer serializes user profile data.
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta: 
         model: new_user_model
         fields = ('email', 'user_name', 'first_name')
     
 
+# The UserLarryLevelSerializer is currently commented out and not active.
 
 # class UserLarryLevelSerializer(serializers.ModelSerializer):
 #     """

@@ -1,15 +1,27 @@
+
+/*************************************************************************
+ * Component: ChartThree
+ *
+ * Logic: This file defines a React component for displaying task analytics
+ * using a donut chart. It imports necessary dependencies, including
+ * 'ApexOptions' for chart configuration, and 'ReactApexChart' for rendering the
+ * chart. The component also imports other required interfaces and
+ * hooks. It sets up chart options and initializes chart data using the
+ * 'useTaskContext' hook. The component calculates and displays the percentage
+ * of tasks completed, to-do, overdue, and in-progress.
+ *
+ * Type: Component
+*************************************************************************/
+
 import { ApexOptions } from 'apexcharts';
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 import { useEffect, useContext } from 'react';
 import { ComponentType } from 'react';
-import Loader from '../common/Loader';
 
 import { Task } from '../interfaces/Task';
 import useTaskContext from '../hooks/useTaskContext';
-
-
 
 interface ChartThreeState {
   series: number[];

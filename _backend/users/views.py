@@ -1,3 +1,10 @@
+################################################################################
+# This 'views.py' file defines various Django Rest Framework (DRF) views for
+# handling user-related operations, authentication, and profile retrieval.
+# It includes views for user registration, token blacklist, and user profile
+# retrieval.
+################################################################################
+
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import status
 from rest_framework.response import Response
@@ -9,7 +16,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
-
+# CustomUserCreate view allows user registration with a POST request.
 class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
 
@@ -23,6 +30,7 @@ class CustomUserCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# BlacklistTokenUpdateView allows blacklisting a JWT token.
 class BlacklistTokenUpdateView(APIView):
     permission_classes = [AllowAny]
     # authentication_classes = ()
@@ -36,7 +44,7 @@ class BlacklistTokenUpdateView(APIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
+# RetriveUserTask view retrieves user profiles for authenticated users.
 class RetriveUserTask(generics.RetrieveAPIView):
     permission_classes=[IsAuthenticated]
     serializer_class = UserProfileSerializer
@@ -44,6 +52,8 @@ class RetriveUserTask(generics.RetrieveAPIView):
         current_user = self.request.user
         return new_user_model.objects.filter(user_id=current_user)
 
+
+# The LarryLevel view is currently commented out and not active.
 
 # class LarryLevel(APIView):
 #     # permission_classes = [AllowAny]

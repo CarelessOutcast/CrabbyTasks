@@ -1,9 +1,21 @@
+
+/*************************************************************************
+ * WORK-IN-PROGRESS: 
+ * File: TaskProvider.tsx
+ *
+ * Logic: Defines a React context provider for managing task-related data and functions.
+ *
+ * Type: React Context Provider
+*************************************************************************/
+
+
 import { useState, useEffect, useContext, useRef } from 'react'
 import useAxios from "../hooks/useAxios";
 
 import TaskContext from './TaskContext';
 
 const TaskProvider = ({ children }) => {
+
     let [userTasks, setUserTasks] = useState({});
 
     let [userTasksStats, setUserTasksStats] = useState({

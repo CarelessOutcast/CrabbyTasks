@@ -1,8 +1,17 @@
+/*************************************************************************
+ * File: App.tsx
+ * Logic: This file defines the main application component, including routes and
+ * route handling.
+ * Type: Component
+*************************************************************************/
+
+
 import { Suspense, lazy, useEffect, useState, useContext } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import TaskProvider from './context/TaskProvider';
 import AuthContext from './context/AuthContext';
+
 import Home from './pages/Dashboard/Home';
 import TaskManager from './pages/TaskManager';
 import SignIn from './pages/Authentication/SignIn';
@@ -28,7 +37,6 @@ const PrivateRoute = ({children, ...rest}) => {
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [updateTask, setUpdateTask] = useState<boolean>(false);
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
