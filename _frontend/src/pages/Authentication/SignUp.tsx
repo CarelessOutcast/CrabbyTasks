@@ -1,6 +1,7 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Finish the Auth Sign up logic and attach
  *
  * File: SignUp.tsx
  *

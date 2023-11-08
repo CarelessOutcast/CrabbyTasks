@@ -1,7 +1,7 @@
 
-
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Change the Dark mode toggle to function with Modal
  *
  * Component: TaskModal
  *

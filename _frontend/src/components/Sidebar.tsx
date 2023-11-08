@@ -1,6 +1,7 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Add the pet page
  *
  * Component: Sidebar.tsx
  *

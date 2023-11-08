@@ -1,6 +1,5 @@
 
 /*************************************************************************
- * WORK-IN-PROGRESS: 
  * File: DefaultLayout.tsx
  *
  * Logic: Defines a default layout for the application with a sidebar, header,

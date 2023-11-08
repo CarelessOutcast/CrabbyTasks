@@ -1,5 +1,6 @@
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *   Make the TaskList Center on screen
  *
  * Component: TaskList
  *
@@ -11,6 +12,7 @@
  *
  * Type: Component
 *************************************************************************/
+
 import React, { ComponentType } from 'react';
 import Loader from '../common/Loader';
 import { Task } from '../interfaces/Task';
@@ -18,8 +20,6 @@ import TaskModal from '../components/TaskModal';
 import { useEffect, useState, useContext } from 'react';
 import dayjs from 'dayjs';
 import useTaskContext from '../hooks/useTaskContext';
-
-
 
 const TaskListRows = (props) =>{
   

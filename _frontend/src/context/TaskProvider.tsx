@@ -1,6 +1,8 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Change way tasks are updated
+ *
  * File: TaskProvider.tsx
  *
  * Logic: Defines a React context provider for managing task-related data and functions.

@@ -1,6 +1,7 @@
 
 /*************************************************************************
- * WORK-IN-PROGRESS
+ * WORK-IN-PROGRESS:
+ *    Add auth context to change the signed in user
  *
  * Component: Header
  *

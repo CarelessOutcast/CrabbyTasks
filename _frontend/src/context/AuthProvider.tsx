@@ -1,6 +1,7 @@
 
 /*************************************************************************
  * WORK-IN-PROGRESS: 
+ *    Add User information in settings, and store in state 
  *
  * File: AuthProvider.tsx
  *

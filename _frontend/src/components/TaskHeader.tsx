@@ -1,6 +1,7 @@
 
 /*************************************************************************
- * WORK-IN-PROGRESS
+ * WORK-IN-PROGRESS:
+ *    Center the Popup, and fix components
  *
  * Component: TaskHeader
  *
