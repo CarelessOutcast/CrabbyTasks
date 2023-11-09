@@ -1,0 +1,56 @@
+{
+  "hash": "f94caa8d",
+  "browserHash": "233313d6",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "1c650dc3",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "1b11bd49",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "3317a886",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "295774da",
+      "needsInterop": false
+    },
+    "react-hot-toast": {
+      "src": "../../node_modules/react-hot-toast/dist/index.mjs",
+      "file": "react-hot-toast.js",
+      "fileHash": "f9e40740",
+      "needsInterop": false
+    },
+    "react-apexcharts": {
+      "src": "../../node_modules/react-apexcharts/dist/react-apexcharts.min.js",
+      "file": "react-apexcharts.js",
+      "fileHash": "ee7f8a63",
+      "needsInterop": true
+    },
+    "jsvectormap": {
+      "src": "../../node_modules/jsvectormap/dist/js/jsvectormap.min.js",
+      "file": "jsvectormap.js",
+      "fileHash": "18251bcc",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-ZAUFE7H7": {
+      "file": "chunk-ZAUFE7H7.js"
+    },
+    "chunk-UXIASGQL": {
+      "file": "chunk-UXIASGQL.js"
+    }
+  }
+}
