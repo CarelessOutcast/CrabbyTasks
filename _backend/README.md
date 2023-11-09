@@ -70,7 +70,7 @@ To run CrabbyTasks locally, follow these steps:
    ```
    DJANGO_SECRET_KEY=your_secret_key
    DEBUG=1
-   DB_ENGINE=django.db.backends.sqlite3
+   DB_ENGINE=django.db.backends.sqlite3 #your.db.backend
    DB_DEVELOPER_NAME=your_database_name
    DB_DEVELOPER_USER=your_database_user
    DB_DEVELOPER_PASSWORD=your_database_password
@@ -138,6 +138,8 @@ You can customize and extend the CrabbyTasks project by adding new features, vie
 ## Contributors
 
 - [Carlos Tapia](https://github.com/CarelessOutcast)
+- [Julian Hernandez]()
+- [Austin Truong]()
 
 If you would like to contribute to this project, please feel free to fork the repository, make changes, and submit pull requests.
 
