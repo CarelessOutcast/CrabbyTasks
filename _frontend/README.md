@@ -1,6 +1,6 @@
 # Project Overview
 
-This README.md file provides an overview and explanation of the project's codebase, structure, and key components. The project is a React application that appears to be a task management system with routing, user authentication, and various components. Below, we'll break down the project into its main components and provide descriptions for each file and folder.
+This README.md file provides an overview and explanation of the project's codebase, structure, and key components. The project is a React Frontend task management system with routing, user authentication, and various components. Below, we'll break down the project into its main components and provide descriptions for each file and folder.
 
 ## Project Structure
 
@@ -9,14 +9,14 @@ The project's codebase is structured as follows:
 ```
 /src
   ├── components
-  │   ├── Breadcrumb.tsx
-  │   ├── Loader.tsx
+  │   ├── CardOne.tsx
+  │   ├── TaskModal.tsx
   │   ├── TaskChart.tsx
-  │   ├── TaskList.tsx
+  │   ├── TaskLarge.tsx
   │   ├── ...
   ├── context
   │   ├── AuthContext.tsx
-  │   ├── TaskProvider.tsx
+  │   ├── TaskContext.tsx
   │   ├── ...
   ├── hooks
   │   ├── useAxios.ts
@@ -55,19 +55,20 @@ Let's go through each significant file and folder in the project:
 
 ### `components`
 
-- **Breadcrumb.tsx**: This component is responsible for rendering breadcrumbs on the top of pages, indicating the current location within the app.
+- **CardOne.tsx**: This component showcases the users tasks on the homepage.
+  
+- **TaskModal.tsx**: This component is used to update users tasks. A functional requiremnet for the application.
+  
+- **TaskChart.tsx**: This components showcases every task, and allows for delete and update functions of the task.
+  
+- **TaskLarge.tsx**: This component allows for users to add tasks. A functional requirement for the application.
 
-- **Loader.tsx**: It renders a loading spinner or indicator to inform users that content is being loaded.
-
-- **TaskChart.tsx**: This component appears to be related to rendering charts for tasks.
-
-- **TaskList.tsx**: TaskList component renders a list of tasks. It is likely used in the task management section of the app.
 
 ### `context`
 
-- **AuthContext.tsx**: This context provides authentication-related state and functions, likely used for user authentication throughout the app.
+- **AuthContext.tsx**: This context provides authentication-related state and functions, used for user authentication throughout the app.
 
-- **TaskProvider.tsx**: TaskProvider appears to provide context related to task management.
+- **TaskContext.tsx**: This context provides task-related state and functions, used for task objects throughout the app.
 
 ### `hooks`
 
@@ -77,15 +78,15 @@ Let's go through each significant file and folder in the project:
 
 ### `images`
 
-This folder likely contains image assets used in the application.
+This folder contains image assets used in the application.
 
 ### `interfaces`
 
-- **Task.ts**: Defines an interface for a Task object.
+- **Task.ts**: Defines an interface for a Task object. Used for typescript.
 
 ### `layout`
 
-- **DefaultLayout.tsx**: This component represents the default layout of the application, which likely includes common elements like navigation bars or footers.
+- **DefaultLayout.tsx**: This component represents the default layout of the application which includes common elements like navigation bars or footers.
 
 ### `pages`
 
@@ -95,9 +96,9 @@ This folder contains different pages or views of the application.
 
 - **Dashboard**: Contains the main dashboard page (Home.tsx).
 
-- **LandingPage.tsx**: The landing page of the application, possibly the entry point for visitors.
+- **LandingPage.tsx**: The landing page of the application, the entry point for visitors.
 
-- **Pet.tsx**: A page related to "Pet" management, though the exact functionality is not clear from the code.
+- **Pet.tsx**: A page related to "Pet" management; **the functionality has not yet been implemented**.
 
 - **Profile.tsx**: A page for user profiles.
 
@@ -131,7 +132,7 @@ A TypeScript declaration file for handling various image file types (PNG, SVG, J
 
 ## Project Functionality
 
-From the code and folder structure, it appears that the project is a web application built with React for managing tasks and includes user authentication. The app has various pages, including a landing page, task management, user profile, settings, and pet management (though the exact functionality of this part is unclear). Users can sign in and sign up, and there's a dashboard for managing tasks, potentially with a calendar view and task lists.
+This project is a web application built with React for managing tasks and includes user authentication. The app has various pages, including a landing page, task management, user profile, settings, and pet management (though the exact functionality of this part is unclear). Users can sign in and sign up, and there's a dashboard for managing tasks, with a calendar view and task lists.
 
 ## Installation and Usage
 
