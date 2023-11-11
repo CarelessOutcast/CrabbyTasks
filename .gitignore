@@ -2,6 +2,8 @@ local-file.conf
 .DS_Store
 .vscode/
 .vscode
+dataDictionary.txt
+files.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
