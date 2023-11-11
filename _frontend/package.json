@@ -10,9 +10,9 @@
     "test": "jest"
   },
   "author": {
-    "name": "TailAdmin",
-    "email": "hello@tailadmin.com",
-    "url": "https://tailadmin.com"
+    "name": "Carlos",
+    "email": "tapiacarlos32@gmail.com",
+    "url": ""
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",

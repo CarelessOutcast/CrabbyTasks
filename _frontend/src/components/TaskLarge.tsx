@@ -28,7 +28,7 @@ const TaskLarge = () =>{
         priority:'5',
         category:'Other',
         notification:'None',
-    };
+    });
 
   const handleInputChange = (e) => {
     const {name, value} = e.target;
